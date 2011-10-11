@@ -22,7 +22,6 @@ public class Google {
 
 
 	System.out.printf(":: Test Google Places ::\n");
-	System.out.printf("Enter start point and end point.\n");
 	while (true) {
 	    
 	    System.out.printf("Enter latitude: ");
