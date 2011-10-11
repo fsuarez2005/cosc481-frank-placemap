@@ -1,16 +1,11 @@
 package org.placemap.tests;
 
-import java.io.Console;
-import java.util.Arrays;
-import java.io.IOException;
+import java.util.Scanner;
 
 import org.placemap.datasource.MapQuest;
 
 // prints total distance between two places
 public class TextUI {
-    Console cons;
-
-
     
     // ui loop
     public void mainLoop() {
@@ -18,30 +13,18 @@ public class TextUI {
 	String city2;
 
 	MapQuest m = new MapQuest("Fmjtd%7Cluu2nu6znd%2Cb2%3Do5-h0805");
-	
-	cons = System.console();
-        if (cons == null) {
-            System.err.println("No console.");
-            System.exit(1);
-        }
+	Scanner scan = new Scanner(System.in);
 
-	
-
-	cons.format(":: Test Text UI ::\n");
-	cons.format("Enter start point and end point.\n");
+	System.out.printf(":: Test Text UI ::\n");
+	System.out.printf("Enter start point and end point.\n");
 	while (true) {
-	    cons.format("  Enter start city and state \"City, State\": ");
-	    city1 = cons.readLine();
-	    cons.format("  Enter end city and state \"City, State\": ");
-	    city2 = cons.readLine();
+	    System.out.printf("  Enter start city and state \"City, State\": ");
+	    city1 = scan.next();
+	    System.out.printf("  Enter end city and state \"City, State\": ");
+	    city2 = scan.next();
 	    double distance = m.getDistance( city1, city2 );
-	    cons.format("  Distance: %f\n",distance);
-	    //cons.format(" (%s) (%s) \n",city1,city2);
-
-
+	    System.out.printf("  Distance: %f\n",distance);
 	}
-
-
 
     }
 
