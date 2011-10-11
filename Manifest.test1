@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Main-Class: org.placemap.tests.TextUI
+Class-Path: lib/commons-beanutils-1.8.3.jar lib/commons-collections-3.2.1.jar lib/commons-lang-2.6.jar lib/commons-logging-1.1.1.jar lib/ezmorph-1.0.6.jar lib/json-lib-2.4-jdk15.jar
+Name: org/placemap
+Specification-Title: "PlaceMap"
+Specification-Version: "0"
+Specification-Vendor: "Frank Suarez".
+Implementation-Title: "org.placemap" 
+Implementation-Version: "build1"
+Implementation-Vendor: "Frank Suarez"

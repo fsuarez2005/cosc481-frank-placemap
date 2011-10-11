@@ -1,0 +1,45 @@
+ _____  _                __  __             
+|  __ \| |              |  \/  |            
+| |__) | | __ _  ___ ___| \  / | __ _ _ __  
+|  ___/| |/ _` |/ __/ _ \ |\/| |/ _` | '_ \ 
+| |    | | (_| | (_|  __/ |  | | (_| | |_) |
+|_|    |_|\__,_|\___\___|_|  |_|\__,_| .__/ 
+                                     | |    
+                                     |_|    
+
+Chris, Nathan, Frank
+
+############ INTRODUCTION ############
+
+############ COMPILING ############
+
+Running make will compile the required classes. lib contains required external libraries.
+
+make
+
+############ TEST CLASS ############
+
+org.placemap.tests.TextUI asks for a start city, state and end city, state. It returns the response JSON.
+
+java -cp .:lib/* org.placemap.tests.TextUI
+
+Example:
+
+:: Test Text UI ::
+Enter start point and end point.
+  Enter start city and state "City, State": Port Huron,MI
+  Enter end city and state "City, State": Ypsilanti,MI
+
+---
+
+org.placemap.tests.Test1 requests from the MapQuest API directions from Lancaster,PA to York,PA and prints the JSON response. JSON-lib is also tested by parsing the JSON string to a JSONObject (Java object).
+
+Run the test class with this:
+
+java -cp .:lib/* org.placemap.tests.Test1
+
+############ DOCUMENTATION ############
+
+############ LIB ############
+
+contains the required libraries for json-lib.
