@@ -17,6 +17,14 @@ Running make will compile the required classes. lib contains required external l
 
 make
 
+############ PLACES ON ROUTE APP ############
+
+org.placemap.tests.PlacesOnRoute
+
+This class asks for a start city and end city. It uses MapQuest to find a route (latitude/longitude on legs). It then uses Google Places to find places near the latitude/longitude of each leg of route.
+
+
+
 ############ TEST CLASS ############
 
 org.placemap.tests.TextUI asks for a start city, state and end city, state. It returns the response JSON.
