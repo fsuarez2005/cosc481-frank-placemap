@@ -18,12 +18,12 @@ public class TextUI {
 	System.out.printf(":: Test Text UI ::\n");
 	System.out.printf("Enter start point and end point.\n");
 	while (true) {
-	    System.out.printf("  Enter start city and state \"City, State\": ");
-	    city1 = scan.next();
-	    System.out.printf("  Enter end city and state \"City, State\": ");
-	    city2 = scan.next();
+	    System.out.printf("Enter start city and state \"City, State\": ");
+	    city1 = scan.nextLine();
+	    System.out.printf("Enter end city and state \"City, State\": ");
+	    city2 = scan.nextLine();
 	    double distance = m.getDistance( city1, city2 );
-	    System.out.printf("  Distance: %f\n",distance);
+	    System.out.printf("Distance: %f\n",distance);
 	}
 
     }

@@ -18,7 +18,7 @@ DOXYDEST := doc/doxygen
 
 # ##########################################
 
-JFLAGS = -g -classpath $(CLASSPATH)
+JFLAGS = -g -Xlint:unchecked -classpath $(CLASSPATH)
 JC = javac
 DOXYGEN := doxygen
 FIND := find
