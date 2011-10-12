@@ -13,7 +13,6 @@ public class Google {
 	double radius;
 
 	System.out.printf(":: Test Google Places ::\n");
-	System.out.printf("Enter start point and end point.\n");
 	while (true) {
 	    System.out.printf("Enter city: ");
 	    city = scan.next();
