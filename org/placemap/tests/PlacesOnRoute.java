@@ -3,7 +3,8 @@ package org.placemap.tests;
 import java.util.Scanner;
 
 import org.placemap.datasource.*;
-import java.util.ArrayList;
+import org.placemap.entity.*;
+import org.placemap.Configuration;
 
 // prints total distance between two places
 public class PlacesOnRoute {
@@ -17,9 +18,9 @@ public class PlacesOnRoute {
 	System.out.printf("// Places Along Route //\n");
 	System.out.printf("////////////////////////\n\n");
 
-
-	MapQuest m = new MapQuest("Fmjtd%7Cluu2nu6znd%2Cb2%3Do5-h0805");
-	GooglePlaces gp = new GooglePlaces("AIzaSyDkGX_KSZsT27e8EOROcFw8IE7P_5VAbiA");
+	// configuration should be in a user directory
+	MapQuest m = new MapQuest( Configuration.mapQuestApiKey );
+	GooglePlaces gp = new GooglePlaces( Configuration.googlePlacesApiKey );
 
 	Scanner scan = new Scanner(System.in);
 
@@ -28,10 +29,11 @@ public class PlacesOnRoute {
 	System.out.printf("Enter end city and state \"City, State\": ");
 	city2 = scan.nextLine();
 
-	ArrayList<Double[]> route_array = m.getRoute(city1,city2);
-	for(int n = 0; n < route_array.size(); n++) {
-	    double lat = route_array.get(n)[0].doubleValue();
-	    double lng = route_array.get(n)[1].doubleValue();
+	Route route_array = m.getRoute(city1,city2);
+
+	for(int n = 0; n < route_array.locations.size(); n++) {
+	    double lat = route_array.locations.get(n).latitude;
+	    double lng = route_array.locations.get(n).longitude;
 
 	    System.out.printf("Location: %f, %f\n",lat,lng);
 	    gp.getPlaces(lat,lng,50);
@@ -45,3 +47,4 @@ public class PlacesOnRoute {
 	t.mainLoop();
     }
 }
+

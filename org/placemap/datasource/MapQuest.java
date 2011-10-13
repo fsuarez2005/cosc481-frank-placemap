@@ -11,6 +11,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+import org.placemap.entity.*;
+
+
 public class MapQuest {
     private String apiURL = "http://www.mapquestapi.com/directions/v1/route";
     private String apiKey;
@@ -28,32 +31,28 @@ public class MapQuest {
 	return distance;
     }
 
-    public ArrayList<Double[]> getRoute(String city1, String city2) {
-	ArrayList<Double[]> route_array = new ArrayList<Double[]>();
+    public Route getRoute(String city1, String city2) {
+	Route r = new Route();
 
-	JSONObject j = this.getDirectionJSON(city1,city2);
-	JSONObject route = j.getJSONObject("route");
+	JSONObject directions_json = this.getDirectionJSON(city1,city2);
+	JSONObject route = directions_json.getJSONObject("route");
 	JSONArray legs = route.getJSONArray("legs");
+
 
 	for(Object leg : legs) {
 	    JSONArray manuvs = ((JSONObject)leg).getJSONArray("maneuvers");
 	    for(Object manuv : manuvs) {
+		Location a = new Location();
+
 		JSONObject startPoint = ((JSONObject)manuv).getJSONObject("startPoint");
-		double latitude = startPoint.getDouble("lat");
-		double longitude = startPoint.getDouble("lng");
-		//System.out.printf("%s\n",startPoint);
-		
-		Double[] v = {latitude,longitude};
 
-		route_array.add(v);
+		a.latitude = startPoint.getDouble("lat");
+		a.longitude = startPoint.getDouble("lng");
 
+		r.locations.add(a);
 	    }
-	  
-
 	}
-	    
-
-	return route_array;
+	return r;
     }
 
 
@@ -79,9 +78,4 @@ public class MapQuest {
     }
 
 
-}
-
-class Location {
-    public double latitude;
-    public double longitude;
 }

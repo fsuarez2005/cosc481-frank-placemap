@@ -3,6 +3,8 @@ package org.placemap.tests;
 import java.util.Scanner;
 
 import org.placemap.datasource.MapQuest;
+import org.placemap.Configuration;
+
 
 // prints total distance between two places
 public class TextUI {
@@ -12,7 +14,7 @@ public class TextUI {
 	String city1;
 	String city2;
 
-	MapQuest m = new MapQuest("Fmjtd%7Cluu2nu6znd%2Cb2%3Do5-h0805");
+	MapQuest m = new MapQuest(Configuration.mapQuestApiKey);
 	Scanner scan = new Scanner(System.in);
 
 	System.out.printf(":: Test Text UI ::\n");
