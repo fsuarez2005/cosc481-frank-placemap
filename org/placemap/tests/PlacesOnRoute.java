@@ -6,6 +6,8 @@ import org.placemap.datasource.*;
 import org.placemap.entity.*;
 import org.placemap.Configuration;
 
+import net.sf.json.*;
+
 // prints total distance between two places
 public class PlacesOnRoute {
     
@@ -32,10 +34,18 @@ public class PlacesOnRoute {
 	Route route_array = m.getRoute(city1,city2);
 
 	for(int n = 0; n < route_array.locations.size(); n++) {
-	    double lat = route_array.locations.get(n).latitude;
-	    double lng = route_array.locations.get(n).longitude;
+	    Location loc = route_array.locations.get(n);
+	    double lat = loc.latitude;
+	    double lng = loc.longitude;
 
 	    System.out.printf("Location: %f, %f\n",lat,lng);
+	    JSONArray streets = loc.maneuver.getJSONArray("streets");
+	    for(int st_count = 0; st_count < streets.size(); st_count++){
+		System.out.printf("Street: %s\n",streets.get(st_count));
+
+	    }
+
+
 	    gp.getPlaces(lat,lng,50);
 	    System.out.printf("===============================\n");
 	}

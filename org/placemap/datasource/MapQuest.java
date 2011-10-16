@@ -35,6 +35,8 @@ public class MapQuest {
 	Route r = new Route();
 
 	JSONObject directions_json = this.getDirectionJSON(city1,city2);
+	//System.out.printf("%s\n",directions_json);
+	
 	JSONObject route = directions_json.getJSONObject("route");
 	JSONArray legs = route.getJSONArray("legs");
 
@@ -45,6 +47,9 @@ public class MapQuest {
 		Location a = new Location();
 
 		JSONObject startPoint = ((JSONObject)manuv).getJSONObject("startPoint");
+		
+		a.maneuver = (JSONObject)manuv;
+		
 
 		a.latitude = startPoint.getDouble("lat");
 		a.longitude = startPoint.getDouble("lng");
