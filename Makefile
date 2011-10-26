@@ -4,7 +4,7 @@
 # package building configuration
 CLASSPATH = .:lib/*
 
-SRCDIRS := org org/placemap org/placemap/datasource org/placemap/tests
+SRCDIRS := org org/placemap org/placemap/datasource org/placemap/tests org/placemap/entity
 CLASSES := $(subst .java,.class,$(foreach d,$(SRCDIRS),$(wildcard $(d)/*.java)))
 
 PACKAGE := org.placemap
