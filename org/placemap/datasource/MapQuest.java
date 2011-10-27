@@ -12,19 +12,23 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-import org.placemap.entity.*;
+import org.placemap.entity.mapquest.*;
 
 
 public class MapQuest {
     private String apiURL = "http://www.mapquestapi.com/directions/v1/route";
     private String apiKey;
     // =================================================================
-    public MapQuest ( String apiKey ) {
+    public MapQuest() {}
+    public MapQuest( String apiKey ) {
+	this();
+
 	this.apiKey = apiKey;
     }
 
-    public MapQuest () {}
+
     // =================================================================
+    // XXX DEPRECIATED
     public double getDistance(String city1, String city2) {
 	JSONObject j = this.getDirectionJSON(city1,city2);
 	JSONObject route = j.getJSONObject("route");
@@ -32,16 +36,22 @@ public class MapQuest {
 	return distance;
     }
 
+    // returns org.placemap.entity.mapquest.Route
     public Route getRoute(String city1, String city2) {
 	Route r = new Route();
-
+	
 	JSONObject directions_json = this.getDirectionJSON(city1,city2);
+
+	Directions d = new Directions(directions_json);
+
+	
+	/*
 	//System.out.printf("%s\n",directions_json);
 	
 	JSONObject route = directions_json.getJSONObject("route");
 	JSONArray legs = route.getJSONArray("legs");
-
-
+	System.out.printf("%s",legs);
+	
 	for(Object leg : legs) {
 	    JSONArray manuvs = ((JSONObject)leg).getJSONArray("maneuvers");
 	    for(Object manuv : manuvs) {
@@ -58,6 +68,8 @@ public class MapQuest {
 		//r.locations.add(a);
 	    }
 	}
+	*/
+
 	return r;
     }
 

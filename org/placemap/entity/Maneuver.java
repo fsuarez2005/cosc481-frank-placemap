@@ -18,17 +18,8 @@ public class Maneuver {
     //turnType
     public Location startPoint;
 
-    
-
-
-    public Maneuver() {}
-    public Maneuver(JSONObject respJson) {
-	JSONObject startPointJson = ((JSONObject) respJson).getJSONObject("startPoint");
-	startPoint = new Location( startPointJson.getDouble("lat"), startPointJson.getDouble("lng") );
-
-	JSONArray streetsJsonArray = respJson.getJSONArray("streets");
-	for(Object s : streetsJsonArray) {
-	    streets.add((String)s);
-	}
+    public Maneuver() {
+	this.streets = new ArrayList<String>();
     }
+
 }

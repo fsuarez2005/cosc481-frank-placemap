@@ -3,19 +3,16 @@ package org.placemap.entity;
 
 import net.sf.json.*;
 
+import java.util.ArrayList;
+
 public class Leg {
     public double length;
     public double time;
     public String formattedTime;
-    public Maneuver[] maneuvers;
+    public ArrayList<Maneuver> maneuvers;
 
-    public Leg() {}
-    public Leg(JSONObject respJson) {
-	
-
-
+    public Leg() {
+	this.maneuvers = new ArrayList<Maneuver>();
     }
-
-
 
 }
