@@ -45,6 +45,12 @@ java -cp ".:lib\*" org.placemap.tests.PlacesOnRoute
 
 jUnit tests are not yet implemented.
 
+########### CONFIGURATION LOG ###########
+
+The configuration log required for week 3 is in
+
+log/git.log
+
 ############ LIB ############
 
 contains the required libraries for json-lib.
