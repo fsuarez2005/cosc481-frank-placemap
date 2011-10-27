@@ -4,7 +4,14 @@
 # package building configuration
 CLASSPATH = .:lib/*
 
-SRCDIRS := org org/placemap org/placemap/datasource org/placemap/tests org/placemap/entity
+SRCDIRS := 	org \
+		org/placemap \
+		org/placemap/datasource \
+		org/placemap/tests \
+		org/placemap/entity \
+		org/placemap/entity/mapquest \
+		org/placemap/util
+
 CLASSES := $(subst .java,.class,$(foreach d,$(SRCDIRS),$(wildcard $(d)/*.java)))
 
 PACKAGE := org.placemap
@@ -54,3 +61,8 @@ doc: html
 # make jar file for package
 jar: $(CLASSES) $(MANIFEST) 
 	jar cmf $(MANIFEST) $(JARFILE) $(PACKAGESRCDIR)
+
+
+# do unit tests on all test classes
+unittest:
+

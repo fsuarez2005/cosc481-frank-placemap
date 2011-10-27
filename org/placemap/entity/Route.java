@@ -2,8 +2,6 @@
 package org.placemap.entity;
 
 
-
-
 import java.util.ArrayList;
 
 public class Route {
@@ -11,9 +9,9 @@ public class Route {
     public Location startLocation;
     public Location endLocation;
 
+    public ArrayList<Leg> legs;
+
     public Route() {
-	this.locations = new ArrayList<Location>();
-
+	//this.locations = new ArrayList<Location>();
     }
-
 }

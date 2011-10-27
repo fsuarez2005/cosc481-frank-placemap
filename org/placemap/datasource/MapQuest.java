@@ -1,7 +1,8 @@
 // API code for MapQuest
 
-
 package org.placemap.datasource;
+
+
 
 // include JSON-lib in classpath
 import net.sf.json.*;
@@ -48,13 +49,13 @@ public class MapQuest {
 
 		JSONObject startPoint = ((JSONObject)manuv).getJSONObject("startPoint");
 		
-		a.maneuver = (JSONObject)manuv;
+		//a.maneuver = (JSONObject)manuv;
 		
 
-		a.latitude = startPoint.getDouble("lat");
-		a.longitude = startPoint.getDouble("lng");
+		//a.latitude = startPoint.getDouble("lat");
+		//a.longitude = startPoint.getDouble("lng");
 
-		r.locations.add(a);
+		//r.locations.add(a);
 	    }
 	}
 	return r;
@@ -81,6 +82,7 @@ public class MapQuest {
 	JSONObject jsonResp = JSONObject.fromObject( resp );
 	return jsonResp;
     }
+
 
 
 }
