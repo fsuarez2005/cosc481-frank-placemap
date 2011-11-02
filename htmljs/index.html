@@ -24,9 +24,18 @@
 	    src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 
     <script type="text/javascript">
+
+      // map needs to be global for callbacks
+      var defaultPlaceMap;
+
+
       function initialize() {
-      p = new PlaceMap();
-      p.loadMap();
+      defaultPlaceMap = new PlaceMap();
+      defaultPlaceMap.loadMap();
+
+      d = new Directions('ypsilanti,mi','port huron,mi');
+      d.sendRequest();
+
       }
 
 

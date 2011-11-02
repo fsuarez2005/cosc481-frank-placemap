@@ -12,6 +12,9 @@ function PlaceMap () {
 	overviewMapControl: true
     }
     // ----------------------------------------------------------
+    // load necessary libraries
+    function loadLibrary() {}
+
 
     function getMap () {
 	return googleMap;
@@ -70,8 +73,9 @@ function PlaceMap () {
 
     }
     
-    // ----------------------------------------------------------
-    
+
+    // ==========================================================
+    // callbacks
     function callback_placeSearch(results,status) {
 	
 	if (status ==
@@ -90,7 +94,57 @@ function PlaceMap () {
 	}
 
     }
-    
+
+
+    // ----------------------------------------------------------
+
+ 
+
+}
+
+
+function Directions (origin,destination) {
+    var requestObject = {
+	origin: origin,
+	destination: destination,
+	travelMode: google.maps.TravelMode.DRIVING
+    }
+
+
+
+    function sendRequest() {
+	var dirSrv = new google.maps.DirectionsService();
+	dirSrv.route(requestObject,callback_directions);
+
+    }
+    this.sendRequest = sendRequest;
+
+    function callback_directions(results,status) {
+
+	switch (status) {
+	case google.maps.DirectionsStatus.OK:
+	    alert('good directions');
+	    // render route on map
+	    // don't know where this came from so have to use default map
+	    //alert(results.routes[0]);
+	    
+	    
+	    var dirRenderer = new google.maps.DirectionsRenderer({
+		map: defaultPlaceMap.getMap(),
+		directions: results
+	    });
+	    alert(dirRenderer);
+
+	    break;
+	default:
+	    break;
+
+
+	}
+
+
+    }
+
 
 }
 
