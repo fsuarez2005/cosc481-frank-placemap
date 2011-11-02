@@ -31,32 +31,50 @@
 
       function initialize() {
       defaultPlaceMap = new PlaceMap();
+      // defaultPlaceMap.loadMap();
+      
+      //defaultPlaceMap.findPlaces();
+
+      //d = new Directions('ypsilanti,mi','port huron,mi');
+      //d.sendRequest();
+
+      }
+
+
+      function mapinput_callback(e) {
+      var origin = document.forms['mapinput'].origin;
+      var destination = document.forms['mapinput'].destination;
+      //alert(origin);
+
       defaultPlaceMap.loadMap();
 
-      d = new Directions('ypsilanti,mi','port huron,mi');
+      var d = new Directions(origin.value, destination.value);
       d.sendRequest();
 
-      }
-
-
-      /*
-      function initialize() {
-      var latlng = new google.maps.LatLng(-34.397, 150.644);
-      var myOptions = {
-      zoom: 8,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      overviewMapControl: true
-
       
-      };
-      var map = new google.maps.Map(document.getElementById("map_canvas"),
-      myOptions);
+
       }
-*/
+
+
     </script>
   </head>
   <body onload="initialize()">
+    <form name="mapinput" id="mapinput">
+      <!-- user input area -->
+<label>Origin</label>
+<input type="text" name="origin" id="origin" />
+<br />
+<label>Destination</label>
+<input type="text" name="destination" id="destination" />
+<br />
+<input type="button" name="go" value="Go" onclick="mapinput_callback(event)" />
+
+
+    </form>
+
+
     <div id="map_canvas"></div>
+
+    <div id="debug_out"></div>
   </body>
 </html>

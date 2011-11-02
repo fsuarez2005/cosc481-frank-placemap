@@ -7,9 +7,11 @@ function PlaceMap () {
     var googleMap;
     var googleMapOptions = {
 	zoom: 12,
-	center: new google.maps.LatLng(40,-83),
+	center: new google.maps.LatLng(42.25104295126321,-83.62424351776122), // EMU campus
 	mapTypeId: google.maps.MapTypeId.ROADMAP,
-	overviewMapControl: true
+	overviewMapControl: true,
+	rotateControl: true,
+	streetViewControl: true
     }
     // ----------------------------------------------------------
     // load necessary libraries
@@ -34,11 +36,13 @@ function PlaceMap () {
 				  googleMapOptions);
 
 
-	//google.maps.event.addListener(googleMap, 'click', function(event) {
-	//placeMarker(event.latLng);
-	//});
+	google.maps.event.addListener(googleMap, 'click', function(event) {
+	    //placeMarker(event.latLng);
 
-	findPlaces();
+	    alert(event.latLng);
+	});
+
+	//findPlaces();
 
 
     }
@@ -59,35 +63,39 @@ function PlaceMap () {
 
     // ----------------------------------------------------------
 
-    function findPlaces() {
+    function findPlaces(location) {
 	// find places from center of map
 	var request = {
-	    location: googleMapOptions['center'], 
-	    // new google.maps.LatLng(-33.8665433,151.1956316),
-	    radius: '1500',
-	    types: ['store']
+	    //location: googleMapOptions['center'], 
+	    location: location,
+	    radius: '1000' // meters
+	    //types: ['store']
 	};
 
 	service = new google.maps.places.PlacesService(googleMap);
 	service.search(request, callback_placeSearch);
 
     }
+    this.findPlaces = findPlaces;
     
 
     // ==========================================================
     // callbacks
     function callback_placeSearch(results,status) {
-	
+	var map = defaultPlaceMap.getMap();
 	if (status ==
 	    google.maps.places.PlacesServiceStatus.OK) {
 
 	    for (var i = 0; i < results.length; i++) {
-		var loc = results[i].geometry.location;
+		var place = results[i];
+		var loc = place.geometry.location;
 		var m = new google.maps.Marker({
-		    map: googleMap,
-		    position: loc
+		    map: map,
+		    position: loc,
+		    title: place.name
 		});
-
+		
+		
 
 	
 	    }
@@ -123,17 +131,33 @@ function Directions (origin,destination) {
 
 	switch (status) {
 	case google.maps.DirectionsStatus.OK:
-	    alert('good directions');
+
 	    // render route on map
 	    // don't know where this came from so have to use default map
-	    //alert(results.routes[0]);
-	    
-	    
+
+
+
+
+	    // render route
 	    var dirRenderer = new google.maps.DirectionsRenderer({
 		map: defaultPlaceMap.getMap(),
 		directions: results
 	    });
-	    alert(dirRenderer);
+
+	    // place POI along route
+	    var steps = results.routes[0].legs[0].steps;
+
+	    for(var n = 0; n < steps.length; n++) {
+		var path = steps[n].path;
+		for(var path_n = 0; path_n < path.length; path_n += 100) {
+
+		    var loc = path[path_n];
+
+		    defaultPlaceMap.findPlaces(loc);
+		}
+	    }
+
+
 
 	    break;
 	default:
