@@ -104,7 +104,7 @@ function PlaceMap (id) {
 		var m = new google.maps.Marker({
 		    map: googleMap,
 		    position: loc,
-		    title: place.id+'/'+place.name
+		    title: place.name
 		    // animation: google.maps.Animation.DROP // too slow
 		});
 
