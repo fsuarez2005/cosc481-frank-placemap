@@ -1,12 +1,14 @@
 /* placemap -- google maps frontend */
 
-function PlaceMap () {
+function PlaceMap (id) {
     /* constructor */
     var infowindow = new google.maps.InfoWindow();
+    var routeRenderer = new google.maps.DirectionsRenderer();
+
 
     var googleMap;
     var googleMapOptions = {
-	zoom: 12,
+	zoom: 11,
 	center: new google.maps.LatLng(42.25104295126321,-83.62424351776122), // EMU campus
 	mapTypeId: google.maps.MapTypeId.ROADMAP,
 	overviewMapControl: true,
@@ -23,26 +25,34 @@ function PlaceMap () {
     }
     this.getMap = getMap;
 
-    function addOption(k,v) {
+    function setOption(k,v) {
 	googleMapOptions[k] = v;
     }
-    this.addOption = addOption;
+    this.setOption = setOption;
 
     // ----------------------------------------------------------
 
     function loadMap() {
 
 	googleMap = new google.maps.Map(document.getElementById("map_canvas"),
-				  googleMapOptions);
+					googleMapOptions);
 
 
 	google.maps.event.addListener(googleMap, 'click', function(event) {
 	    //placeMarker(event.latLng);
+	    var infowin = new google.maps.InfoWindow({
+		content: "hi",
+		disableAutoPan: true,
+		position:event.latLng
 
-	    alert(event.latLng);
+	    });
+
+	    infowin.open(defaultPlaceMap.getMap());
+
+	    //alert(event.latLng);
 	});
 
-	//findPlaces();
+
 
 
     }
@@ -56,24 +66,25 @@ function PlaceMap () {
 	    position: location, 
 	    map: googleMap
 	});
-	
-	googleMap.setCenter(location);
     }
     this.placeMarker = placeMarker;
 
     // ----------------------------------------------------------
 
-    function findPlaces(location) {
+    function findPlaces(location,types) {
+	if (types == null) { types = [] }
 	// find places from center of map
 	var request = {
 	    //location: googleMapOptions['center'], 
 	    location: location,
-	    radius: '1000' // meters
-	    //types: ['store']
+	    radius: '1000', // meters
+	    types: types
 	};
 
 	service = new google.maps.places.PlacesService(googleMap);
-	service.search(request, callback_placeSearch);
+	service.search(request,
+		       eval('function (results,status) {currentMaps[\''+id+
+			    '\'].callback_placeSearch(results,status);}'));
 
     }
     this.findPlaces = findPlaces;
@@ -82,52 +93,63 @@ function PlaceMap () {
     // ==========================================================
     // callbacks
     function callback_placeSearch(results,status) {
-	var map = defaultPlaceMap.getMap();
-	if (status ==
-	    google.maps.places.PlacesServiceStatus.OK) {
+
+
+	switch (status) {
+	case google.maps.places.PlacesServiceStatus.OK:
 
 	    for (var i = 0; i < results.length; i++) {
 		var place = results[i];
 		var loc = place.geometry.location;
 		var m = new google.maps.Marker({
-		    map: map,
+		    map: googleMap,
 		    position: loc,
-		    title: place.name
+		    title: place.id+'/'+place.name
+		    // animation: google.maps.Animation.DROP // too slow
 		});
-		
-		
 
-	
-	    }
+		google.maps.event.addListener(m,'click',function (event) {
+		    alert(event.latLng);
+
+		});
+
+	    }	
+	    break;
+
+	default:
+	    break;
+	    
 	}
 
     }
+    this.callback_placeSearch = callback_placeSearch;
 
 
     // ----------------------------------------------------------
 
- 
-
-}
 
 
-function Directions (origin,destination) {
-    var requestObject = {
-	origin: origin,
-	destination: destination,
-	travelMode: google.maps.TravelMode.DRIVING
-    }
+    function plotRoute(origin,destination) {
+	var requestObject = {
+	    origin: origin,
+	    destination: destination,
+	    travelMode: google.maps.TravelMode.DRIVING
+	}
 
-
-
-    function sendRequest() {
 	var dirSrv = new google.maps.DirectionsService();
-	dirSrv.route(requestObject,callback_directions);
+	
+	// hack to tell which map to put the points
+	dirSrv.route(requestObject,eval('function (results,status) {currentMaps[\''+id+
+					'\'].route_callback(results,status);}'));
+	
+
 
     }
-    this.sendRequest = sendRequest;
+    this.plotRoute = plotRoute;
 
-    function callback_directions(results,status) {
+    function route_callback(results,status) {
+	
+	
 
 	switch (status) {
 	case google.maps.DirectionsStatus.OK:
@@ -140,7 +162,7 @@ function Directions (origin,destination) {
 
 	    // render route
 	    var dirRenderer = new google.maps.DirectionsRenderer({
-		map: defaultPlaceMap.getMap(),
+		map: googleMap,
 		directions: results
 	    });
 
@@ -153,7 +175,7 @@ function Directions (origin,destination) {
 
 		    var loc = path[path_n];
 
-		    defaultPlaceMap.findPlaces(loc);
+		    findPlaces(loc);
 		}
 	    }
 
@@ -168,7 +190,7 @@ function Directions (origin,destination) {
 
 
     }
+    this.route_callback = route_callback;
 
 
 }
-

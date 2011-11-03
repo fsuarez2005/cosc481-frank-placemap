@@ -5,11 +5,11 @@
     <title>PlaceMap test</title>
 
     <style type="text/css">
-      /*
+
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
-*/
-      #map_canvas { height: 500px;width: 500px; border:1px solid black; }
+
+      #map_canvas { height: 500px;width: 100%; border:1px solid black; }
       
     </style>
 
@@ -24,13 +24,16 @@
 	    src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
 
     <script type="text/javascript">
-
+      
       // map needs to be global for callbacks
       var defaultPlaceMap;
-
+      var currentMaps = {};
 
       function initialize() {
-      defaultPlaceMap = new PlaceMap();
+      defaultPlaceMap = new PlaceMap('testmap1');
+      currentMaps['testmap1'] = defaultPlaceMap;
+
+
       // defaultPlaceMap.loadMap();
       
       //defaultPlaceMap.findPlaces();
@@ -48,8 +51,10 @@
 
       defaultPlaceMap.loadMap();
 
-      var d = new Directions(origin.value, destination.value);
-      d.sendRequest();
+      defaultPlaceMap.plotRoute(origin.value, destination.value);
+
+      //var d = new Directions(origin.value, destination.value);
+      //d.sendRequest();
 
       
 
@@ -61,10 +66,10 @@
   <body onload="initialize()">
     <form name="mapinput" id="mapinput">
       <!-- user input area -->
-<label>Origin</label>
+<label style="display:inline-block;width:200px">Origin</label>
 <input type="text" name="origin" id="origin" />
 <br />
-<label>Destination</label>
+<label style="display:inline-block;width:200px">Destination</label>
 <input type="text" name="destination" id="destination" />
 <br />
 <input type="button" name="go" value="Go" onclick="mapinput_callback(event)" />
