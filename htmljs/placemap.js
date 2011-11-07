@@ -175,7 +175,15 @@ function PlaceMap (id) {
 
 		    var loc = path[path_n];
 
-		    findPlaces(loc);
+		    findPlaces(loc,[
+			'amusement_park',
+			'aquarium',
+			'art_gallery',
+			'campground',
+			'casino',
+			'museum'
+		    ]);
+
 		}
 	    }
 
