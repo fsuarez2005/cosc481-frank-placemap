@@ -1,6 +1,66 @@
 /* placemap -- google maps frontend */
 
+function Dict () {
+    var _data = {}
+    var _length = 0;
+    var _keys = new Array();
+
+    function add(key,value) {
+	// only increase size if new key and value
+	if (has_key(key) == false) {
+	    _length = _length + 1;
+	    _keys.push(key);
+	}
+
+	_data[key] = value;
+
+    }
+    this.add = add;
+    
+    function remove(key) {
+	if (has_key(key) == true) {
+	    _length = _length - 1;
+	}
+
+	delete _data[key];
+    }
+    this.remove = remove;
+
+
+    function length() {
+	return _length;
+    }
+    this.length = length;
+
+    function has_key(key) {
+	return (typeof(_data[key]) != 'undefined');
+
+    }
+    this.has_key = has_key;
+
+    function get(key) {
+	return _data[key];
+    }
+    this.get = get;
+    
+    function keys() {
+	return _keys;
+    }
+    this.keys = keys;
+
+
+}
+
+var placeCache = new Dict();
+
+
+
 function PlaceMap (id) {
+    // register map id callbacks can work
+    currentMaps[id] = this;
+
+    this.pid = id;
+
     /* constructor */
     var infowindow = new google.maps.InfoWindow();
     var routeRenderer = new google.maps.DirectionsRenderer();
@@ -15,6 +75,8 @@ function PlaceMap (id) {
 	rotateControl: true,
 	streetViewControl: true
     }
+
+    
     // ----------------------------------------------------------
     // load necessary libraries
     function loadLibrary() {}
@@ -33,11 +95,10 @@ function PlaceMap (id) {
     // ----------------------------------------------------------
 
     function loadMap() {
-
 	googleMap = new google.maps.Map(document.getElementById("map_canvas"),
 					googleMapOptions);
 
-
+	/*
 	google.maps.event.addListener(googleMap, 'click', function(event) {
 	    //placeMarker(event.latLng);
 	    var infowin = new google.maps.InfoWindow({
@@ -52,9 +113,7 @@ function PlaceMap (id) {
 	    //alert(event.latLng);
 	});
 
-
-
-
+	*/
     }
     this.loadMap = loadMap;
 
@@ -93,7 +152,9 @@ function PlaceMap (id) {
     // ==========================================================
     // callbacks
     function callback_placeSearch(results,status) {
-
+	var d = document.getElementById('leftcol');
+	//d.appendChild(document.createTextNode(status));
+	//alert(this);
 
 	switch (status) {
 	case google.maps.places.PlacesServiceStatus.OK:
@@ -112,6 +173,14 @@ function PlaceMap (id) {
 		    alert(event.latLng);
 
 		});
+
+		placeCache.add(place.reference,place);
+
+		var place_text_node = document.createTextNode(place.name);
+		d.appendChild(place_text_node);
+		d.appendChild(document.createElement('br'));
+		
+
 
 	    }	
 	    break;
@@ -148,7 +217,8 @@ function PlaceMap (id) {
     this.plotRoute = plotRoute;
 
     function route_callback(results,status) {
-	
+	// this is available
+	//alert(this.pid);
 	
 
 	switch (status) {
@@ -175,7 +245,9 @@ function PlaceMap (id) {
 
 		    var loc = path[path_n];
 
-		    findPlaces(loc,[
+		    findPlaces(loc,[]);
+
+			/*
 			'amusement_park',
 			'aquarium',
 			'art_gallery',
@@ -183,6 +255,8 @@ function PlaceMap (id) {
 			'casino',
 			'museum'
 		    ]);
+
+*/
 
 		}
 	    }
