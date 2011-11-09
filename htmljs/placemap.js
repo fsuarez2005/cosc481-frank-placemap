@@ -141,9 +141,18 @@ function PlaceMap (id) {
 	};
 
 	service = new google.maps.places.PlacesService(googleMap);
-	service.search(request,
-		       eval('function (results,status) {currentMaps[\''+id+
-			    '\'].callback_placeSearch(results,status);}'));
+	try {
+
+	    var function_body = 'currentMaps[\''+id+'\'].callback_placeSearch(results,status);';
+	    var callback_eval = new Function('results','status',function_body);
+	
+	    service.search(request,callback_eval);
+
+	} catch (err) {
+	    alert(err);
+
+	}
+
 
     }
     this.findPlaces = findPlaces;
@@ -208,9 +217,22 @@ function PlaceMap (id) {
 	var dirSrv = new google.maps.DirectionsService();
 	
 	// hack to tell which map to put the points
-	dirSrv.route(requestObject,eval('function (results,status) {currentMaps[\''+id+
-					'\'].route_callback(results,status);}'));
-	
+	try {
+	    //var callback1 = 'function (results,status) {currentMaps[\''+id+
+		'\'].route_callback(results,status);}';
+	    //alert(callback1);
+	    //var callback1_eval = eval(callback1);
+	    
+	    var function_body = 'currentMaps[\''+id+'\'].route_callback(results,status);'
+	    alert(function_body);
+	    callback1_eval = new Function('results','status',function_body);
+	    alert(callback1_eval);
+	    dirSrv.route(requestObject,callback1_eval);
+
+	} catch (err) {
+	    alert(err);
+
+	}
 
 
     }
