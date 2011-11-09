@@ -60,6 +60,9 @@ function PlaceMap (id) {
     currentMaps[id] = this;
 
     this.options = {
+	placeListNode: null,
+	originNode: null,
+	destinationNode: null,
 	placeTypes: [],
 	placeRadius: 1000,
 	id: id,
