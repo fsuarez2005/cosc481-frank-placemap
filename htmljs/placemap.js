@@ -59,7 +59,11 @@ function PlaceMap (id) {
     // register map id callbacks can work
     currentMaps[id] = this;
 
-    this.pid = id;
+
+    
+    // may not exist
+    var node = document.getElementById( id );
+    
 
     /* constructor */
     var infowindow = new google.maps.InfoWindow();
@@ -95,25 +99,14 @@ function PlaceMap (id) {
     // ----------------------------------------------------------
 
     function loadMap() {
-	googleMap = new google.maps.Map(document.getElementById("map_canvas"),
-					googleMapOptions);
+	// use place map id as div id for map
+	//googleMap = new google.maps.Map(document.getElementById("map_canvas"),
 
-	/*
-	google.maps.event.addListener(googleMap, 'click', function(event) {
-	    //placeMarker(event.latLng);
-	    var infowin = new google.maps.InfoWindow({
-		content: "hi",
-		disableAutoPan: true,
-		position:event.latLng
+	
+	googleMap = new google.maps.Map(node,googleMapOptions);
 
-	    });
+	
 
-	    infowin.open(defaultPlaceMap.getMap());
-
-	    //alert(event.latLng);
-	});
-
-	*/
     }
     this.loadMap = loadMap;
 
@@ -130,15 +123,8 @@ function PlaceMap (id) {
 
     // ----------------------------------------------------------
 
-    function findPlaces(location,types) {
-	if (types == null) { types = [] }
-	// find places from center of map
-	var request = {
-	    //location: googleMapOptions['center'], 
-	    location: location,
-	    radius: '1000', // meters
-	    types: types
-	};
+    function findPlaces(requestObject) {
+
 
 	service = new google.maps.places.PlacesService(googleMap);
 	try {
@@ -146,7 +132,7 @@ function PlaceMap (id) {
 	    var function_body = 'currentMaps[\''+id+'\'].callback_placeSearch(results,status);';
 	    var callback_eval = new Function('results','status',function_body);
 	
-	    service.search(request,callback_eval);
+	    service.search(requestObject,callback_eval);
 
 	} catch (err) {
 	    alert(err);
@@ -161,9 +147,7 @@ function PlaceMap (id) {
     // ==========================================================
     // callbacks
     function callback_placeSearch(results,status) {
-	var d = document.getElementById('leftcol');
-	//d.appendChild(document.createTextNode(status));
-	//alert(this);
+	var placeListNode = document.getElementById('leftcol');
 
 	switch (status) {
 	case google.maps.places.PlacesServiceStatus.OK:
@@ -185,9 +169,8 @@ function PlaceMap (id) {
 
 		placeCache.add(place.reference,place);
 
-		var place_text_node = document.createTextNode(place.name);
-		d.appendChild(place_text_node);
-		d.appendChild(document.createElement('br'));
+		placeListNode.appendChild(document.createTextNode(place.name));
+		placeListNode.appendChild(document.createElement('br'));
 		
 
 
@@ -204,10 +187,8 @@ function PlaceMap (id) {
 
 
     // ----------------------------------------------------------
-
-
-
-    function plotRoute(origin,destination) {
+    function plotRoute(origin,destination,placeOptions) {
+	alert(placeOptions);
 	var requestObject = {
 	    origin: origin,
 	    destination: destination,
@@ -218,15 +199,11 @@ function PlaceMap (id) {
 	
 	// hack to tell which map to put the points
 	try {
-	    //var callback1 = 'function (results,status) {currentMaps[\''+id+
-		'\'].route_callback(results,status);}';
-	    //alert(callback1);
-	    //var callback1_eval = eval(callback1);
-	    
-	    var function_body = 'currentMaps[\''+id+'\'].route_callback(results,status);'
-	    alert(function_body);
+	    var function_body = 'currentMaps[\''+id+'\'].route_callback(results,status,placeOptions);'
+
+
 	    callback1_eval = new Function('results','status',function_body);
-	    alert(callback1_eval);
+
 	    dirSrv.route(requestObject,callback1_eval);
 
 	} catch (err) {
@@ -238,10 +215,7 @@ function PlaceMap (id) {
     }
     this.plotRoute = plotRoute;
 
-    function route_callback(results,status) {
-	// this is available
-	//alert(this.pid);
-	
+    function route_callback(results,status,placeOptions) {
 
 	switch (status) {
 	case google.maps.DirectionsStatus.OK:
@@ -266,19 +240,11 @@ function PlaceMap (id) {
 		for(var path_n = 0; path_n < path.length; path_n += 100) {
 
 		    var loc = path[path_n];
+		    placeOptions.location = loc;
+		    findPlaces(placeOptions);
 
-		    findPlaces(loc,[]);
 
-			/*
-			'amusement_park',
-			'aquarium',
-			'art_gallery',
-			'campground',
-			'casino',
-			'museum'
-		    ]);
 
-*/
 
 		}
 	    }
@@ -295,6 +261,4 @@ function PlaceMap (id) {
 
     }
     this.route_callback = route_callback;
-
-
 }
