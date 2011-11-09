@@ -53,13 +53,20 @@ function Dict () {
 
 var placeCache = new Dict();
 
-
+var latLngCache = new Dict();
 
 function PlaceMap (id) {
     // register map id callbacks can work
     currentMaps[id] = this;
 
+    this.options = {
+	placeTypes: [],
+	placeRadius: 1000,
+	id: id,
+	node: document.getElementById( id ),
+	drivingStyle: google.maps.TravelMode.DRIVING,
 
+    };
     
     // may not exist
     var node = document.getElementById( id );
@@ -68,6 +75,10 @@ function PlaceMap (id) {
     /* constructor */
     var infowindow = new google.maps.InfoWindow();
     var routeRenderer = new google.maps.DirectionsRenderer();
+
+
+    
+
 
 
     var googleMap;
@@ -91,10 +102,11 @@ function PlaceMap (id) {
     }
     this.getMap = getMap;
 
-    function setOption(k,v) {
+    function setGoogleMapOption(k,v) {
 	googleMapOptions[k] = v;
     }
-    this.setOption = setOption;
+    this.setGoogleMapOption = setGoogleMapOption;
+
 
     // ----------------------------------------------------------
 
@@ -185,21 +197,21 @@ function PlaceMap (id) {
     }
     this.callback_placeSearch = callback_placeSearch;
 
-
+    
     // ----------------------------------------------------------
-    function plotRoute(origin,destination,placeOptions) {
-	alert(placeOptions);
+    function plotRoute(origin,destination) {
+	
 	var requestObject = {
 	    origin: origin,
 	    destination: destination,
-	    travelMode: google.maps.TravelMode.DRIVING
+	    travelMode: this.options['drivingStyle']
 	}
 
 	var dirSrv = new google.maps.DirectionsService();
 	
 	// hack to tell which map to put the points
 	try {
-	    var function_body = 'currentMaps[\''+id+'\'].route_callback(results,status,placeOptions);'
+	    var function_body = 'currentMaps[\''+id+'\'].route_callback(results,status);'
 
 
 	    callback1_eval = new Function('results','status',function_body);
@@ -215,8 +227,8 @@ function PlaceMap (id) {
     }
     this.plotRoute = plotRoute;
 
-    function route_callback(results,status,placeOptions) {
-
+    function route_callback(results,status) {
+	// object method
 	switch (status) {
 	case google.maps.DirectionsStatus.OK:
 
@@ -240,8 +252,13 @@ function PlaceMap (id) {
 		for(var path_n = 0; path_n < path.length; path_n += 100) {
 
 		    var loc = path[path_n];
-		    placeOptions.location = loc;
-		    findPlaces(placeOptions);
+		    var pOptions = {
+			types: this.options['placeTypes'],
+			radius: this.options['placeRadius'],
+			location: loc
+		    };
+
+		    findPlaces(pOptions);
 
 
 
@@ -261,4 +278,8 @@ function PlaceMap (id) {
 
     }
     this.route_callback = route_callback;
+
+
+
+
 }
