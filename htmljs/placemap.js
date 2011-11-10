@@ -304,6 +304,7 @@ function PlaceMap (id) {
 		    var loc = path[path_n];
 		    var pOptions = {
 			types: this.options['placeTypes'],
+//			types: document.getElementById("cat").value.split(","),
 			radius: this.options['placeRadius'],
 			location: loc
 		    };
