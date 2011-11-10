@@ -9,13 +9,25 @@
 
 Chris, Nathan, Frank
 
-############ INTRODUCTION ############
+Week 3 Version
+
+############ DESCRIPTION ############
+
+This version of PlaceMap is a text based program that askes the user for start and end locations. The program then lists the route with points-of-interest along at each point in the route.
 
 ############ COMPILING ############
 
-Running make will compile the required classes. lib contains required external libraries.
+Running make will compile the required classes. lib contains required external libraries. Make is the prefered method due to the current volatility of the source.
 
 make
+
+OR (FOR LINUX)
+
+javac -cp 'lib/*' org/placemap/datasource/MapQuest.java org/placemap/datasource/GooglePlaces.java org/placemap/datasource/URL2String.java org/placemap/tests/Test1.java org/placemap/tests/Google.java org/placemap/tests/TextUI.java org/placemap/tests/PlacesOnRoute.java org/placemap/Configuration.java org/placemap/entity/Location.java org/placemap/entity/Route.java org/placemap/entity/Address.java org/placemap/PlaceMap.java
+
+OR (FOR WINDOWS)
+
+javac -cp "lib\*" org\placemap\datasource\MapQuest.java org\placemap\datasource\GooglePlaces.java org\placemap\datasource\URL2String.java org\placemap\tests\Test1.java org\placemap\tests\Google.java org\placemap\tests\TextUI.java org\placemap\tests\PlacesOnRoute.java org\placemap\Configuration.java org\placemap\entity\Location.java org\placemap\entity\Route.java org\placemap\entity\Address.java org\placemap\PlaceMap.java
 
 ############ PLACES ON ROUTE APP ############
 
@@ -23,30 +35,21 @@ org.placemap.tests.PlacesOnRoute
 
 This class asks for a start city and end city. It uses MapQuest to find a route (latitude/longitude on legs). It then uses Google Places to find places near the latitude/longitude of each leg of route.
 
+java -cp '.:lib/*' org.placemap.tests.PlacesOnRoute
 
+OR (FOR WINDOWS)
 
-############ TEST CLASS ############
+java -cp ".:lib\*" org.placemap.tests.PlacesOnRoute
 
-org.placemap.tests.TextUI asks for a start city, state and end city, state. It returns the response JSON.
+############ UNIT TESTS ############
 
-java -cp .:lib/* org.placemap.tests.TextUI
+jUnit tests are not yet implemented.
 
-Example:
+########### CONFIGURATION LOG ###########
 
-:: Test Text UI ::
-Enter start point and end point.
-  Enter start city and state "City, State": Port Huron,MI
-  Enter end city and state "City, State": Ypsilanti,MI
+The configuration log required for week 3 is in
 
----
-
-org.placemap.tests.Test1 requests from the MapQuest API directions from Lancaster,PA to York,PA and prints the JSON response. JSON-lib is also tested by parsing the JSON string to a JSONObject (Java object).
-
-Run the test class with this:
-
-java -cp .:lib/* org.placemap.tests.Test1
-
-############ DOCUMENTATION ############
+log/git.log
 
 ############ LIB ############
 
