@@ -39,11 +39,11 @@ public class PlacesOnRoute {
 	    double lng = loc.longitude;
 
 	    System.out.printf("Location: %f, %f\n",lat,lng);
-	    JSONArray streets = loc.maneuver.getJSONArray("streets");
-	    for(int st_count = 0; st_count < streets.size(); st_count++){
-		System.out.printf("Street: %s\n",streets.get(st_count));
+	    //JSONArray streets = loc.maneuver.getJSONArray("streets");
+	    //for(int st_count = 0; st_count < streets.size(); st_count++){
+	    //	System.out.printf("Street: %s\n",streets.get(st_count));
 
-	    }
+	    //}
 
 
 	    gp.getPlaces(lat,lng,50);
