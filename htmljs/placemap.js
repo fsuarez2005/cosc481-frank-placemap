@@ -1,5 +1,20 @@
 /* placemap -- google maps frontend */
 
+function get_selected_list(select_node) {
+    var x = new Array();
+    for(var n = 0; n < select_node.options.length; n++){
+	var opt = select_node.options[n];
+	if (opt.selected) {
+	    x.push(opt.value);
+	}
+
+    }
+
+    return x;
+
+}
+
+
 function tag(tagname,attrObject,childNodes) {
         //
         // create a node and its contents in a functional way
@@ -364,7 +379,7 @@ function PlaceMap (id) {
 			return;
 		    }
 
-
+		    //alert(this.options['placeTypes']);
 		    var loc = path[path_n];
 		    var pOptions = {
 			types: this.options['placeTypes'],

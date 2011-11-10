@@ -89,7 +89,7 @@
       var destination = document.forms['mapinput'].destination;
 
       // set options
-      defaultPlaceMap.options['placeTypes'] = document.getElementById("cat").value.split(" ");
+      defaultPlaceMap.options['placeType'] = [];
 
       defaultPlaceMap.options['placeListNode'] = document.getElementById('leftcol');
 
@@ -118,9 +118,6 @@
       <div id="searchdiv">
 	<form name="mapinput" id="mapinput">
 	  <!-- user input area -->
-	  <label class="catlabel" style="">Types of Places</label>
-	  <input type="text" name="cat" id="cat" value="" />
-
 	  <label class="searchlabel" style="">Origin</label>
 	  <input type="text" name="origin" id="origin" value="Port Huron,MI" />
 	  
