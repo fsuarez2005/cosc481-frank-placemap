@@ -1,0 +1,117 @@
+PlaceMap:
+
+Running Tests:
+To run the test suite all you have to do is open the test.html file in a web browser. It'll run tests on our javascript code. The first two tests will just confirm 
+that our test suite actually works. The test suite system tests aren't calculated into the final test score.
+
+Running the system:
+Opening the index.html page in a browser will start our system. You can enter the start point, the destination, and the category of the point of interest you're interested in finding.
+
+Explanation of changes:
+Our system is based on the java code we previously developed, but isn't the actual code. We've redone our previous code in javascript. This allows us to run the system completely client side. We had our system running as a JSP, but we felt that it was overly complicated and the server side of our system could easily be run by the client.
+
+
+Description of PlaceMap:
+When the user submits a starting city and an ending city we fetch the route from google map. We then plot the route onto our embedded google map. While we're plotting the route we take longitude and latitude locations across the route and request all the near by points of interest from google places. We store these places into an array and plot them with a marker on our embedded google map. We also list all the places we've found. We did the same process using a java backend on a JSP client page, but we felt that there were too many points of failure for a process that can easily be done on the client's machine.
+
+
+Issues
+We're currently working on a nice user interface for our system. At the current stage there are a few rough edges. One of those edges is the category selection for types of places. Currently to request any type of places to show up on the map you leave the Types of Places box empty. To search for a specific type of place you have to enter in the google places api code for that type. We have listed all the codes at the bottom of this document. To search for multiple categories you can seperate each category code with a space.
+
+accounting
+airport
+amusement_park
+aquarium
+art_gallery
+atm
+bakery
+bank
+bar
+beauty_salon
+bicycle_store
+book_store
+bowling_alley
+bus_station
+cafe
+campground
+car_dealer
+car_rental
+car_repair
+car_wash
+casino
+cemetery
+church
+city_hall
+clothing_store
+convenience_store
+courthouse
+dentist
+department_store
+doctor
+electrician
+electronics_store
+embassy
+establishment
+finance
+fire_station
+florist
+food
+funeral_home
+furniture_store
+gas_station
+general_contractor
+geocode
+grocery_or_supermarket
+gym
+hair_care
+hardware_store
+health
+hindu_temple
+home_goods_store
+hospital
+insurance_agency
+jewelry_store
+laundry
+lawyer
+library
+liquor_store
+local_government_office
+locksmith
+lodging
+meal_delivery
+meal_takeaway
+mosque
+movie_rental
+movie_theater
+moving_company
+museum
+night_club
+painter
+park
+parking
+pet_store
+pharmacy
+physiotherapist
+place_of_worship
+plumber
+police
+post_office
+real_estate_agency
+restaurant
+roofing_contractor
+rv_park
+school
+shoe_store
+shopping_mall
+spa
+stadium
+storage
+store
+subway_station
+synagogue
+taxi_stand
+train_station
+travel_agency
+university
+veterinary_care
+zoo
