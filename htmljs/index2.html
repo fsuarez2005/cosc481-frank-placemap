@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>PlaceMap test</title>
+
+    <style type="text/css">
+
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+
+      form {
+      display:inline-block;
+
+      }
+
+      #header {
+      display: inline-block;
+      width:100%;
+      height:50px;
+      vertical-align:middle;
+      text-align:center;
+      font-size:16pt;
+      font-weight:bold;
+      padding-top:10px;
+      }
+
+      #searchdiv {
+      overflow: hidden;
+      height:200px;
+
+      }
+
+      #leftcol {
+      position:absolute;
+      top:50px;
+ 
+      display:inline-block;
+      width: 300px;
+      height:550px;
+      
+      overflow:hidden;
+      
+
+      }
+
+
+
+
+      #placelist {
+      overflow-x:hidden;
+      overflow-y:auto;
+      height:350px;
+      width:100%;
+      }
+
+
+      .googlemap {
+      display: inline-block;
+      position:absolute;
+      top:52px;
+      left:300px;
+      height: 550px;
+      width: 650px;
+
+
+      
+      }
+
+      div.placeitem {
+      padding: 3px;
+      cursor: default;
+
+      }
+
+      div.placeitem:hover {
+      background: #ddd;
+
+
+      }
+
+      
+    </style>
+
+    <script type="text/javascript"
+	    src="placemap.js"></script>
+
+    <script type="text/javascript"
+	    src="http://maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+
+    <script type="text/javascript"
+	    src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+
+    <script type="text/javascript">
+      
+      // map needs to be global for callbacks
+      var defaultPlaceMap;
+      var currentMaps = {};
+
+      function initialize() {
+
+
+      defaultPlaceMap = new PlaceMap('testmap1');
+      
+      defaultPlaceMap.loadMap();
+      
+
+
+
+      }
+
+
+      function mapinput_callback(e) {
+      var origin = document.forms['mapinput'].origin;
+      var destination = document.forms['mapinput'].destination;
+
+      // set options
+      defaultPlaceMap.options['placeType'] = [];
+
+      defaultPlaceMap.options['placeListNode'] = document.getElementById('placelist');
+
+      // using default info window call back
+      defaultPlaceMap.options['marker_onclick'] = function anonymous(event) {
+      defaultPlaceMap.openInfo(event.latLng.lat(),event.latLng.lng());
+      
+      };
+
+
+      defaultPlaceMap.loadMap();
+      
+
+      defaultPlaceMap.plotRoute(origin.value, destination.value);
+
+
+      }
+
+
+    </script>
+  </head>
+  <body onload="initialize()">
+
+    <div id="map">
+
+      <div id="header">PlaceMap</div>
+
+
+      <div id="leftcol">
+
+	<div id="searchdiv">
+	  <form name="mapinput" id="mapinput">
+	    <!-- user input area -->
+	    <label class="searchlabel" style="">Origin</label><br>
+	    <input type="text" name="origin" id="origin" value="Port Huron,MI" /><br>
+	    <br>
+	    
+	    <label class="searchlabel" style="">Destination</label><br>
+	    <input type="text" name="destination" id="destination" value="Ypsilanti,MI" /><br>
+	    <input type="button" name="go" value="Go" onclick="mapinput_callback(event)" /><br>
+	    
+	    <input type="button" value="stats" onclick="defaultPlaceMap.stats()" />
+	    
+	  </form>
+	</div>
+	
+	
+
+	
+	<div id="placelist">
+	</div>
+
+
+
+      </div>
+
+      <div id="testmap1" class="googlemap"></div>
+    </div>
+
+  </body>
+</html>

@@ -1,6 +1,52 @@
 /* placemap -- google maps frontend */
 
+function tag(tagname,attrObject,childNodes) {
+        //
+        // create a node and its contents in a functional way
+        //
+        try {  
+                // check for valid tags
+                var node = document.createElement(tagname);
+        } catch (err) {
+                alert(err+'\n'+tagname+' is an invalid tag.');
+        }
+        for (var a in attrObject) {
+                /*
+                class is a keyword in IE. using class as an identifier causes errors in IE.
+                putting an _ infront lets me use class as an identifier. I just have to remove                                      
+                the _
+                */
+                attr = a;
+                if (a.substr(0,1) == '_') {
+                        //alert(a.substring(1))
+                        attr = a.substring(1);
+                }
+                node.setAttribute(attr,attrObject[a]);
+        }
+        for (var n in childNodes) {
+                node.appendChild(childNodes[n]);
+        }
+        return node;
+}
+function text( s ) {
+        //
+        // create a text node
+        //
+        return document.createTextNode( s );
+}
 
+
+function clearNode( node ) {
+    //
+    // remove all child nodes from a node
+    //
+    while (node.childNodes.length > 0) {
+        node.removeChild(node.firstChild);
+    }
+}
+
+
+var currentMaps = {};
 
 function Dict () {
     var _data = {}
@@ -79,13 +125,13 @@ function PlaceMap (id) {
 	originNode: null,
 	destinationNode: null,
 	placeTypes: [],
-	placeRadius: 1000,
+	placeRadius: 2000,
 	placeInterval: 100,
 	id: id,
 	node: document.getElementById( id ),
 	drivingStyle: google.maps.TravelMode.DRIVING,
 	marker_onclick: null, // marker callback function
-	maxPlaces:500
+	maxPlaces:2000
     };
     
     // may not exist
@@ -98,14 +144,24 @@ function PlaceMap (id) {
 
 
     // default info window callback
-    function openInfo(latLng) {
-	// look up info
+    function openInfo(lat,lng) {
+
+
+	var latLng = new google.maps.LatLng(lat,lng);
+
+
 
 	var m = latLngCache.get(latLng.toString());
 
 
+	var content_node = tag('div',{'font-size':'14px'},[text(m.place.name)]);
+
 	
-	infowindow.setContent(m.place.name);
+	infowindow.setContent(content_node);
+
+	
+
+
 	infowindow.setPosition(latLng);
 	infowindow.open(googleMap,m.marker);
 
@@ -224,8 +280,11 @@ function PlaceMap (id) {
 		}
 		
 		if (placeListNode != null) {
-		    placeListNode.appendChild(document.createTextNode(place.name));
-		    placeListNode.appendChild(document.createElement('br'));
+		    //var c = 'alert(latLngCache.get("'+loc.toString()+'").place.name)';
+		    var c = 'currentMaps["'+id+'"].openInfo('+loc.lat()+','+loc.lng()+')';
+		    var t = tag('div',{onclick:c,'class':'placeitem'},[text(place.name)]);
+		    placeListNode.appendChild(t);
+
 		}
 
 
@@ -245,6 +304,11 @@ function PlaceMap (id) {
     this.recentRoute = null;
 
     function plotRoute(origin,destination) {
+	// XXX should delete the nodes, but this is easier to write
+	//this.options['placeListNode'].innerHTML = '';
+
+	clearNode( this.options['placeListNode'] );
+
 	try {
 	    var requestObject = {
 		origin: origin,
@@ -333,3 +397,25 @@ function PlaceMap (id) {
 
 
 }
+
+
+// ==========================================
+
+
+
+
+function setupUI() {
+    // set up onload
+
+
+}
+
+function body_onload() {
+
+
+
+
+}
+
+
+
