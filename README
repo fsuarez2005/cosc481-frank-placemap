@@ -9,11 +9,26 @@
 
 Chris, Nathan, Frank
 
-Week 3 Version
+Week 7 Version
 
 ############ DESCRIPTION ############
 
-This version of PlaceMap is a text based program that askes the user for start and end locations. The program then lists the route with points-of-interest along at each point in the route.
+PlaceMap plots places-of-interest along a route.
+
+The current version is XHTML/Javascript based and uses Google Maps.
+
+########### USAGE ##############
+
+The htmljs/ directory contains the necessary XHTML and Javascript files to view the map. 
+
+########### CONFIGURATION LOG ###########
+
+The configuration log required for week 3 is in
+
+log/git.log
+
+
+THE FOLLOWING IS FOR THE JAVA VERSION IS NOT CURRENTLY BEING DEVELOPED
 
 ############ COMPILING ############
 
@@ -44,12 +59,6 @@ java -cp ".:lib\*" org.placemap.tests.PlacesOnRoute
 ############ UNIT TESTS ############
 
 jUnit tests are not yet implemented.
-
-########### CONFIGURATION LOG ###########
-
-The configuration log required for week 3 is in
-
-log/git.log
 
 ############ LIB ############
 
