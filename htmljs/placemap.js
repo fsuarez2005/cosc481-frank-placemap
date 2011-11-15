@@ -1,136 +1,35 @@
 /* placemap -- google maps frontend */
 
-function get_selected_list(select_node) {
-    var x = new Array();
-    for(var n = 0; n < select_node.options.length; n++){
-	var opt = select_node.options[n];
-	if (opt.selected) {
-	    x.push(opt.value);
-	}
-
-    }
-
-    return x;
-
-}
-
-
-function tag(tagname,attrObject,childNodes) {
-        //
-        // create a node and its contents in a functional way
-        //
-        try {  
-                // check for valid tags
-                var node = document.createElement(tagname);
-        } catch (err) {
-                alert(err+'\n'+tagname+' is an invalid tag.');
-        }
-        for (var a in attrObject) {
-                /*
-                class is a keyword in IE. using class as an identifier causes errors in IE.
-                putting an _ infront lets me use class as an identifier. I just have to remove                                      
-                the _
-                */
-                attr = a;
-                if (a.substr(0,1) == '_') {
-                        //alert(a.substring(1))
-                        attr = a.substring(1);
-                }
-                node.setAttribute(attr,attrObject[a]);
-        }
-        for (var n in childNodes) {
-                node.appendChild(childNodes[n]);
-        }
-        return node;
-}
-function text( s ) {
-        //
-        // create a text node
-        //
-        return document.createTextNode( s );
-}
-
-
-function clearNode( node ) {
-    //
-    // remove all child nodes from a node
-    //
-    while (node.childNodes.length > 0) {
-        node.removeChild(node.firstChild);
-    }
-}
-
-
 var currentMaps = {};
-
-function Dict () {
-    var _data = {}
-    var _length = 0;
-    var _keys = new Array();
-
-    function add(key,value) {
-	// only increase size if new key and value
-	if (has_key(key) == false) {
-	    _length = _length + 1;
-	    _keys.push(key);
-	}
-
-	_data[key] = value;
-
-    }
-    this.add = add;
-    
-    function remove(key) {
-	if (has_key(key) == true) {
-	    _length = _length - 1;
-	}
-
-	delete _data[key];
-    }
-    this.remove = remove;
-
-
-    function length() {
-	return _length;
-    }
-    this.length = length;
-
-    function has_key(key) {
-	return (typeof(_data[key]) != 'undefined');
-
-    }
-    this.has_key = has_key;
-
-    function get(key) {
-	return _data[key];
-    }
-    this.get = get;
-    
-    function keys() {
-	return _keys;
-    }
-    this.keys = keys;
-
-
-}
-
-// =============================================================
-
-var placeCache = new Dict();
+var placeCache = new util.Dict();
 
 
 // examples
 // key: (-42.0000030,80.000000)
 // value: (marker: [marker object], place: [place object]}
-var latLngCache = new Dict();
+var latLngCache = new util.Dict();
 
 
 
 
 
-function PlaceMap (id) {
+function PlaceMap(parentNode) {
+
+    // check for Google Maps library
+    if (typeof(google) != 'object') {
+	throw 'PlaceMap needs Google Maps library';
+    }
+
     var numPlaces = 0;
+    var markers = new Array();
+    this.recentRoute = null;
 
+
+    var mapNode = null;
+    var inputNode = null;
+    var placelistNode = null;
+
+    var id = parentNode.getAttribute('id');
 
     // register map id callbacks can work
     currentMaps[id] = this;
@@ -149,39 +48,63 @@ function PlaceMap (id) {
 	maxPlaces:2000
     };
     
-    // may not exist
-    var node = document.getElementById( id );
-    
 
     /* constructor */
     var infowindow = new google.maps.InfoWindow();
     var routeRenderer = new google.maps.DirectionsRenderer();
 
 
+    // =======================================================
+    // public methods
+
+    // loads initial user interface
+    function load() {
+
+
+	inputNode = tag('div',{'class':'inputdiv'},[
+	    tag('div',{'style':'width:700px'},[
+
+		tag('h1',{'class':'maptitle'},[text('PlaceMap')]),
+		tag('label',{},[text('Origin')]),
+		tag('input',{'type':'text'},[]),
+		tag('br',{},[]),
+		tag('label',{},[text('Destination')]),
+		tag('input',{'type':'text'},[])
+	    ])
+	]);
+
+
+
+	placelistNode = tag('div',{'class':'placelistdiv'},[]);
+	mapNode = tag('div',{'class':'mapdiv'},[]);
+
+
+	var n = tag('div',{'class':'contentdiv'},[
+	    inputNode,
+	    placelistNode,
+	    mapNode
+	]);
+
+
+	inputNode.setAttribute('border','5');
+
+	parentNode.appendChild(n);
+    }
+    this.load = load;
+
     // default info window callback
     function openInfo(lat,lng) {
-
-
 	var latLng = new google.maps.LatLng(lat,lng);
-
-
 
 	var m = latLngCache.get(latLng.toString());
 
-
 	var content_node = tag('div',{'font-size':'14px'},[text(m.place.name)]);
-
 	
 	infowindow.setContent(content_node);
-
-	
 
 
 	infowindow.setPosition(latLng);
 	infowindow.open(googleMap,m.marker);
-
-
-	
     }
     this.openInfo = openInfo;
 
@@ -194,24 +117,8 @@ function PlaceMap (id) {
 	rotateControl: true,
 	streetViewControl: true
     }
-
     
     // ----------------------------------------------------------
-
-    function stats () {
-	var s = '';
-	s += this+'\n';
-	s += placeCache.length() + ' places.\n';
-	s += this.recentRoute.routes[0].legs[0].steps[1].path.length+' path length for steps[1]\n';
-	alert(s);
-
-    }
-    this.stats = stats;
-
-    // load necessary libraries
-    function loadLibrary() {}
-
-
     function getMap () {
 	return googleMap;
     }
@@ -221,21 +128,19 @@ function PlaceMap (id) {
 	googleMapOptions[k] = v;
     }
     this.setGoogleMapOption = setGoogleMapOption;
-
-
     // ----------------------------------------------------------
-
     function loadMap() {
 	// use place map id as div id for map
-	
-	googleMap = new google.maps.Map(node,googleMapOptions);
-
+	googleMap = new google.maps.Map(mapNode,googleMapOptions);
     }
     this.loadMap = loadMap;
 
-    // ----------------------------------------------------------
+    function clearMap() {
 
-    
+
+    }
+
+    // ----------------------------------------------------------
     function placeMarker(location) {
 	var marker = new google.maps.Marker({
 	    position: location, 
@@ -243,9 +148,7 @@ function PlaceMap (id) {
 	});
     }
     this.placeMarker = placeMarker;
-
     // ----------------------------------------------------------
-
     function findPlaces(requestObject) {
 	service = new google.maps.places.PlacesService(googleMap);
 
@@ -316,7 +219,7 @@ function PlaceMap (id) {
 
     
     // ----------------------------------------------------------
-    this.recentRoute = null;
+
 
     function plotRoute(origin,destination) {
 	// XXX should delete the nodes, but this is easier to write
@@ -359,9 +262,6 @@ function PlaceMap (id) {
 	    // render route on map
 	    // don't know where this came from so have to use default map
 
-
-
-
 	    // render route
 	    var dirRenderer = new google.maps.DirectionsRenderer({
 		map: googleMap,
@@ -388,9 +288,6 @@ function PlaceMap (id) {
 		    };
 
 		    findPlaces(pOptions);
-
-
-
 
 		}
 	    }
@@ -431,6 +328,12 @@ function body_onload() {
 
 
 }
+
+a = util.object_properties(PlaceMap.prototype);
+alert(a);
+
+
+
 
 
 
