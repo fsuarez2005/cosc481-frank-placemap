@@ -1,0 +1,37 @@
+Previous Methodology
+	Our methodology was consistent with previous deliveries. During the weekend we would meet in one of the rooms of the library and brainstorm about the project. Most of the time we would agree on what each of us would make and we would put the pieces together the next time that we met. Due to other obligations, motivation was hard to maintain. By being together in the library, we forced ourselves to get something done. Online interaction proved futile. Github provides some interaction though. Our aim was to complete the objectives. Our main source of brainstorming was the Hot Tub game.
+
+Product
+	The product that we ended up with for the week 5 delivery was an HTML with Javascript program that would plot a route with places-of-interest. Nathan was working on a Java Server Pages web interface, but due to the limitations of using Java for Google Maps, we dropped it. The Javascript program seems to work very well for what we need it. We plan on polishing the interface and cleaning up the code. Nathan would like to program step-by-step directions and Chris wants to include extra information with the points-of-interest.
+
+Rate Of Progress
+     We said we were going to create a GUI for the Java program. After discovering its limitations, we switched to HTML and Javascript. Without having a definite plan of what we wanted, our progress was slow.
+
+Reflection
+We Will Keep
+* git
+* HTML
+* Javascript
+* meeting at the library
+* using email
+
+We Will Try
+* programming together
+* scheduling more meeting times
+* using issues on github
+
+We Will Drop
+* meeting at the library during busy times
+* research ideas individually
+
+Updated Entire Project Plan
+       Our program will consist of an HTML interface using Javascript and will integrate with Google Maps. The program will plot a route on a map and find points-of-interest along the route. The user can select among other types of information, such as step-by-step directions and an alphabetical list of places. The program will detect if a mobile device is being used and format the interface to accommodate it.
+
+For the Next Delivery
+* step-by-step directions
+* cleaned up interface
+* more information for points-of-interest
+* GUI for mobile device
+
+
+
