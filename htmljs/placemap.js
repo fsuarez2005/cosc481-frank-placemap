@@ -9,7 +9,7 @@ var placeCache = new util.Dict();
 // value: (marker: [marker object], place: [place object]}
 var latLngCache = new util.Dict();
 
-
+var nSteps=0;
 
 
 
@@ -58,9 +58,6 @@ function PlaceMap(parentNode) {
     // public methods
 
     function marker_onclick(event) {
-//	alert(event.latLng);
-//	alert(latLngCache.get(event.latLng));
-	//alert(placeCache.get(event.latLng.toString()));
 
 	openInfo(event.latLng.lat(),event.latLng.lng());
 
@@ -230,7 +227,7 @@ function PlaceMap(parentNode) {
 		}
 		
 		if (placeListNode != null) {
-		    //var c = 'alert(latLngCache.get("'+loc.toString()+'").place.name)';
+
 		    var c = 'currentMaps["'+id+'"].openInfo('+loc.lat()+','+loc.lng()+')';
 		    var t = tag('div',{onclick:c,'class':'placeitem'},[text(place.name)]);
 		    placeListNode.appendChild(t);
@@ -284,7 +281,6 @@ function PlaceMap(parentNode) {
 	}
 
 
-
     }
     this.plotRoute = plotRoute;
 
@@ -307,13 +303,17 @@ function PlaceMap(parentNode) {
 
 	    for(var n = 0; n < steps.length; n++) {
 		var path = steps[n].path;
+
+		nSteps++;
+
 		for(var path_n = 0; path_n < path.length; path_n += this.options['placeInterval']) {
+
+		    //step++;
 
 		    if (numPlaces >= this.options['maxPlaces']) {
 			return;
 		    }
 
-		    //alert(this.options['placeTypes']);
 		    var loc = path[path_n];
 		    var pOptions = {
 			types: this.options['placeTypes'],
@@ -335,6 +335,7 @@ function PlaceMap(parentNode) {
 
 	}
 
+	alert(nSteps);
 
     }
     this.route_callback = route_callback;
@@ -363,8 +364,8 @@ function body_onload() {
 
 }
 
-//a = util.object_properties(PlaceMap.prototype);
-//alert(a);
+
+
 
 
 
