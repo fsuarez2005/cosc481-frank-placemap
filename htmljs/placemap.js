@@ -57,25 +57,52 @@ function PlaceMap(parentNode) {
     // =======================================================
     // public methods
 
+    function marker_onclick(event) {
+//	alert(event.latLng);
+//	alert(latLngCache.get(event.latLng));
+	//alert(placeCache.get(event.latLng.toString()));
+
+	openInfo(event.latLng.lat(),event.latLng.lng());
+
+    }
+    this.marker_onclick = marker_onclick;
+
+    function inputSubmit(event) {
+
+	var inputElements = document.getElementById(id).childNodes[0].childNodes[0].childNodes[0];
+	var origin = inputElements.childNodes[2];
+	var destination = inputElements.childNodes[5];
+
+	this.plotRoute(origin.value,destination.value);
+
+
+
+    }
+    this.inputSubmit = inputSubmit;
+
     // loads initial user interface
     function load() {
+	this.options['marker_onclick'] = new Function('event','currentMaps[\''+id+'\'].marker_onclick(event)');
 
 
 	inputNode = tag('div',{'class':'inputdiv'},[
 	    tag('div',{'style':'width:700px'},[
-
 		tag('h1',{'class':'maptitle'},[text('PlaceMap')]),
 		tag('label',{},[text('Origin')]),
-		tag('input',{'type':'text'},[]),
+		tag('input',{'type':'text','value':'Port Huron,MI'},[]),
 		tag('br',{},[]),
 		tag('label',{},[text('Destination')]),
-		tag('input',{'type':'text'},[])
+		tag('input',{'type':'text','value':'Ypsilanti,MI'},[]),
+		tag('br',{},[]),
+		tag('input',{'type':'button','onclick':'currentMaps[\''+id+'\'].inputSubmit(event)','value':'Go'},[])
 	    ])
 	]);
 
 
 
 	placelistNode = tag('div',{'class':'placelistdiv'},[]);
+	this.options['placeListNode'] = placelistNode;
+
 	mapNode = tag('div',{'class':'mapdiv'},[]);
 
 
@@ -98,10 +125,15 @@ function PlaceMap(parentNode) {
 
 	var m = latLngCache.get(latLng.toString());
 
-	var content_node = tag('div',{'font-size':'14px'},[text(m.place.name)]);
+	var content_node = tag('div',{},[
+	    tag('a',{'href':'http://www.google.com'},[
+		text(m.place.name)
+	    ])
+
+	]);
 	
 	infowindow.setContent(content_node);
-
+	//infowindow.setContent(m.place.name);
 
 	infowindow.setPosition(latLng);
 	infowindow.open(googleMap,m.marker);
@@ -182,8 +214,8 @@ function PlaceMap(parentNode) {
 		var loc = place.geometry.location;
 		var m = new google.maps.Marker({
 		    map: googleMap,
-		    position: loc,
-		    title: place.name
+		    position: loc
+		    //title: place.name // use infowindow for info instead of tooltip
 		    // animation: google.maps.Animation.DROP // too slow
 		});
 
@@ -225,7 +257,9 @@ function PlaceMap(parentNode) {
 	// XXX should delete the nodes, but this is easier to write
 	//this.options['placeListNode'].innerHTML = '';
 
-	clearNode( this.options['placeListNode'] );
+	if (this.options['placeListNode'] != null) {
+	    clearNode( this.options['placeListNode'] );
+	}
 
 	try {
 	    var requestObject = {
@@ -329,8 +363,8 @@ function body_onload() {
 
 }
 
-a = util.object_properties(PlaceMap.prototype);
-alert(a);
+//a = util.object_properties(PlaceMap.prototype);
+//alert(a);
 
 
 

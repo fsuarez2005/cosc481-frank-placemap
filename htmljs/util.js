@@ -45,17 +45,6 @@ util.import_namespace = function (namespace_string, include_array) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 function get_selected_list(select_node) {
     var x = new Array();
     for(var n = 0; n < select_node.options.length; n++){

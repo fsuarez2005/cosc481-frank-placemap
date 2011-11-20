@@ -46,8 +46,23 @@ div.placelistdiv {
     left:0px;
     width:30%;
     height:50%;
-    background:red;
+    background:#fafafa;
 
+    overflow-y:scroll;
+    
 
 }
+
+div.placelistdiv div.placeitem {
+    padding:5px;
+    background:inherit;
+}
+
+div.placelistdiv div.placeitem:hover {
+    cursor: default;
+    background:#cccccc;
+   
+}
+
+
 
