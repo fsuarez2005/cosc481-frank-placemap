@@ -4,102 +4,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <title>PlaceMap test</title>
 
-    <style type="text/css">
-
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-
-      form {
-      display:inline-block;
-
-      }
-
-      #header {
-      display: inline-block;
-      width:100%;
-      height:50px;
-      vertical-align:middle;
-      text-align:center;
-      font-size:16pt;
-      font-weight:bold;
-      padding-top:10px;
-      }
-
-      #searchdiv {
-      overflow: hidden;
-      
-      height:250px;
-
-      }
-
-      #searchdiv input {
-      width: 298px;
-      border: 1px solid black
-      }
-
-      #searchdiv select {
-      width: 298px;
-      height: 100px;
-      border: 1px solid black;
-      }
-
-      #leftcol {
-
-      position:absolute;
-      top:50px;
-      
-      /*
-      display:inline-block;
-      */    
-      width: 300px;
-      height:550px;
-      
-      overflow:hidden;
-    
-
-      }
-
-
-
-
-      #placelist {
-      background:#eee;
-      overflow-x:hidden;
-      overflow-y:auto;
-      height:300px;
-      width:100%;
-      }
-
-
-      .googlemap {
-      display: inline-block;
-      position:absolute;
-      top:52px;
-      left:300px;
-      height: 550px;
-      width: 600px;
-
-
-      
-      }
-
-      div.placeitem {
-      padding: 3px;
-      cursor: default;
-
-      }
-
-      div.placeitem:hover {
-      background: #ddd;
-
-
-      }
-
-
-      
-
-      
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 
     <script type="text/javascript"
 	    src="placemap.js"></script>
@@ -113,14 +18,6 @@
 
     <script type="text/javascript">
       // gets selected options and returns value list
-
-      
-      
-      
-      
-
-
-    
 
       // map needs to be global for callbacks
       var defaultPlaceMap;
@@ -165,28 +62,40 @@
 
 
       }
-
-
     </script>
   </head>
   <body onload="initialize()">
 
+    <div id="header"><h1>PlaceMap</h1></div>
+
+    <div id="intro">
+      <div id='introForm'>
+        <h3>1. Where are you now?</h3>
+        <p><input type='text' id='introOrigin' /></p>
+        <h3>2. Where are you going?</h3>
+        <p><input type='text' id='introDest' /></p>
+        <h3>3. What places interest you?</h3>
+        <p>[select box]</p>
+        <p><button style='float:right;border: 1px solid black;' onclick='document.getElementById("intro").style.display="none";document.getElementById("map").style.display="block"'>Let's get started</button></p>
+        <div style='clear:both;'></div>
+      </div>
+    </div>
+
     <div id="map">
-
-      <div id="header">PlaceMap</div>
-
 
       <div id="leftcol">
 
 	<div id="searchdiv">
 	  <form name="mapinput" id="mapinput">
 	    <!-- user input area -->
-	    <label class="searchlabel" style="">Origin</label><br>
-	    <input type="text" name="origin" id="origin" value="Port Huron,MI" /><br>
-	    <br>
+	    <label class="searchlabel" style="">Origin</label><br />
+	    <input type="text" name="origin" id="origin" value="Port Huron,MI" /><br />
+	    <br />
 	    
-	    <label class="searchlabel" style="">Destination</label><br>
-	    <input type="text" name="destination" id="destination" value="Ypsilanti,MI" /><br>
+	    <label class="searchlabel" style="">Destination</label><br />
+	    <input type="text" name="destination" id="destination" value="Ypsilanti,MI" /><br />
+
+            <br />
 
 	    <label class="searchlabel">Categories</label><br>
 	    <select multiple="multiple" name="category">
@@ -287,8 +196,9 @@
               <option value="university">university</option>
               <option value="veterinary_care">veterinary_care</option>
               <option value="zoo">zoo</option>
-	    </select>
-	    <br />
+	    </select><br />
+
+            <br />
     
 	    <input type="button" name="go" value="Go" onclick="mapinput_callback(event)" /><br>
 	   
@@ -308,7 +218,12 @@
       </div>
 
       <div id="testmap1" class="googlemap"></div>
+
+      <div id="directionlist"></div>
+
     </div>
+
+    <div id="footer">legal text</div>
 
   </body>
 </html>
