@@ -1,0 +1,68 @@
+
+
+html {}
+
+body {
+    margin:0px;
+    padding:0px;
+}
+
+div.mapdiv {
+    position:absolute;
+    top:0px;
+    left:30%;
+    width:70%;
+    height:100%;
+    background:green;
+
+}
+
+div.inputdiv {
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:30%;
+    height:50%;
+    background:#ddf;
+}
+
+div.inputdiv input {
+    border:1px solid black;
+    padding:2px;
+    margin-bottom:2px;
+    
+
+}
+
+div.inputdiv label {
+    display:inline-block;
+    width: 90px;
+    font-weight:bold;
+}
+
+div.placelistdiv {
+    position:absolute;
+    top:50%;
+    left:0px;
+    width:30%;
+    height:50%;
+    background:#fafafa;
+
+    overflow-y:scroll;
+    
+
+}
+
+div.placelistdiv div.placeitem {
+    padding:5px;
+    background:inherit;
+}
+
+div.placelistdiv div.placeitem:hover {
+    cursor: default;
+    background:#cccccc;
+   
+}
+
+
+
