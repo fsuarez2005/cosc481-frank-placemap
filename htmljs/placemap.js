@@ -38,6 +38,7 @@ function PlaceMap(parentNode) {
 	placeListNode: null,
 	originNode: null,
 	destinationNode: null,
+	directionNode: null,
 	placeTypes: [],
 	placeRadius: 2000,
 	placeInterval: 100,
@@ -188,6 +189,21 @@ function PlaceMap(parentNode) {
 
     }
     this.findPlaces = findPlaces;
+
+    // ----------------------------------------------------------
+
+    function displayDirections(results) {
+	    // place POI along route
+	    var steps = results.routes[0].legs[0].steps;
+	   
+	    var directionNode = this.options['directionNode'];
+
+	    directionNode.innerHTML = "";
+	    for(var n = 0; n < steps.length; n++) {
+		directionNode.innerHTML += steps[n].instructions + "<br />";
+	    }
+    }
+    this.displayDirections = displayDirections;
     
 
     // ==========================================================
@@ -289,6 +305,7 @@ function PlaceMap(parentNode) {
 	switch (status) {
 	case google.maps.DirectionsStatus.OK:
 	    this.recentRoute = results;
+	    
 	    // render route on map
 	    // don't know where this came from so have to use default map
 
@@ -317,12 +334,13 @@ function PlaceMap(parentNode) {
 		    var loc = path[path_n];
 		    var pOptions = {
 			types: this.options['placeTypes'],
+//			types: document.getElementById("cat").value.split(","),
 			radius: this.options['placeRadius'],
 			location: loc
 		    };
 
 		    findPlaces(pOptions);
-
+		    this.displayDirections(results);
 		}
 	    }
 

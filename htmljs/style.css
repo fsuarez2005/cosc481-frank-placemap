@@ -1,0 +1,110 @@
+html {
+	height: 100%
+}
+
+body {
+	height: 100%;
+	margin: 5px 5px 5px 5px;
+	padding: 0;
+
+	background-color: #C7C7BD; 
+	color: #444444;
+
+	font-size: 90%;
+
+	font-family: sans-serif;
+}
+
+input {
+      width: 99%;
+      border: 1px solid black
+}
+
+select {
+	width: 99%;
+	height: 100px;
+	border: 1px solid black;
+}
+
+#header {
+	background-color: #EDDAA6;
+	background: -webkit-gradient(linear, left top, left bottom, from(#EDDAA6), to(#DBD0B2));
+	background: -moz-linear-gradient(top,  #EDDAA6,  #DBD0B2);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EDDAA6', endColorstr='#DBD0B2');
+
+	border: 1px solid black;
+	border-bottom-width: 0px;
+
+	text-align: left;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-right:0px;
+	padding-left:0px;
+	margin: 0 auto;
+
+	width: 90%;
+}
+
+#header h1{
+	margin: 5px;
+}
+
+#intro {
+	background-color: #FAFAED;
+
+	border: 1px solid black;
+
+        padding-top:5px;
+        padding-bottom:5px;
+        padding-right:0px;
+        padding-left:0px;
+        margin: 0 auto;
+
+        width: 90%;
+}
+#introForm {
+	margin: 5px;
+}
+
+#map {
+	display: none;
+
+	background-color: #FAFAED;
+
+	border: 1px solid black;
+
+        padding-top:5px;
+        padding-bottom:5px;
+        padding-right:0px;
+        padding-left:0px;
+        margin: 0 auto;
+
+        width: 90%;
+}
+
+#leftcol {
+	float: left;
+	width: 20%;
+
+	margin: 5px;
+}
+
+#rightcol {
+	width: 78%;
+	float: right;
+}
+
+.googlemap {
+	display: inline-block;
+	height: 600px;
+	width: 98%;
+}
+
+#directionlist {
+	clear: both;
+}
+
+#footer {
+	font-size: 50%
+	text-align: center;
+}
