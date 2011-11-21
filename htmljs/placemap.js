@@ -25,25 +25,28 @@ function PlaceMap(parentNode) {
     this.recentRoute = null;
 
 
-    var mapNode = null;
-    var inputNode = null;
-    var placelistNode = null;
-
     var id = parentNode.getAttribute('id');
 
     // register map id callbacks can work
     currentMaps[id] = this;
 
     this.options = {
+	inputNode: null,
+	mapNode: null,
+	
+
+	inputSubmit: null, // go button
+	categorySelect: null, // category select boxes
 	placeListNode: null,
-	originNode: null,
-	destinationNode: null,
+	originNode: null, // origin input text box
+	destinationNode: null, // destination input text box
 	directionNode: null,
 	placeTypes: [],
 	placeRadius: 2000,
 	placeInterval: 100,
 	id: id,
-	node: document.getElementById( id ),
+	parentNode: parentNode,
+	//	node: document.getElementById( id ), 
 	drivingStyle: google.maps.TravelMode.DRIVING,
 	marker_onclick: null, // marker callback function
 	maxPlaces:2000
@@ -66,12 +69,12 @@ function PlaceMap(parentNode) {
     this.marker_onclick = marker_onclick;
 
     function inputSubmit(event) {
+	
+	//var inputElements = document.getElementById(id).childNodes[0].childNodes[0].childNodes[0];
+	//var origin = inputElements.childNodes[2];
+	//var destination = inputElements.childNodes[5];
 
-	var inputElements = document.getElementById(id).childNodes[0].childNodes[0].childNodes[0];
-	var origin = inputElements.childNodes[2];
-	var destination = inputElements.childNodes[5];
-
-	this.plotRoute(origin.value,destination.value);
+	this.plotRoute(this.options['originNode'].value,this.options['destinationNode'].value);
 
 
 
@@ -79,35 +82,46 @@ function PlaceMap(parentNode) {
     this.inputSubmit = inputSubmit;
 
     // loads initial user interface
-    function load() {
+    function loadDefaultInterface() {
 	this.options['marker_onclick'] = new Function('event','currentMaps[\''+id+'\'].marker_onclick(event)');
 
+	this.options['originNode'] = tag('input',{'type':'text','value':'Port Huron,MI'},[]);
+	this.options['destinationNode'] = tag('input',{'type':'text','value':'Ypsilanti,MI'},[]);
 
-	inputNode = tag('div',{'class':'inputdiv'},[
-	    tag('div',{'style':'width:700px'},[
+	var inputNode = tag('div',{'class':'inputdiv'},[
+	    tag('div',{},[
 		tag('h1',{'class':'maptitle'},[text('PlaceMap')]),
 		tag('label',{},[text('Origin')]),
-		tag('input',{'type':'text','value':'Port Huron,MI'},[]),
+		tag('br',{},[]),
+		this.options['originNode'],
+
 		tag('br',{},[]),
 		tag('label',{},[text('Destination')]),
-		tag('input',{'type':'text','value':'Ypsilanti,MI'},[]),
+		tag('br',{},[]),
+		this.options['destinationNode'],
+
 		tag('br',{},[]),
 		tag('input',{'type':'button','onclick':'currentMaps[\''+id+'\'].inputSubmit(event)','value':'Go'},[])
 	    ])
 	]);
+	this.options['inputNode'] = inputNode;
 
 
+	var placeListNode = tag('div',{'class':'placeListDiv'},[]);
+	this.options['placeListNode'] = placeListNode;
 
-	placelistNode = tag('div',{'class':'placelistdiv'},[]);
-	this.options['placeListNode'] = placelistNode;
+	var mapNode = tag('div',{'class':'mapdiv'},[]);
+	this.options['mapNode'] = mapNode;
 
-	mapNode = tag('div',{'class':'mapdiv'},[]);
 
+	var directionNode = tag('div',{'class':'directiondiv'},[]);
+	this.options['directionNode'] = directionNode;
 
 	var n = tag('div',{'class':'contentdiv'},[
 	    inputNode,
-	    placelistNode,
-	    mapNode
+	    placeListNode,
+	    mapNode,
+	    directionNode
 	]);
 
 
@@ -115,7 +129,7 @@ function PlaceMap(parentNode) {
 
 	parentNode.appendChild(n);
     }
-    this.load = load;
+    this.loadDefaultInterface = loadDefaultInterface;
 
     // default info window callback
     function openInfo(lat,lng) {
@@ -161,7 +175,7 @@ function PlaceMap(parentNode) {
     // ----------------------------------------------------------
     function loadMap() {
 	// use place map id as div id for map
-	googleMap = new google.maps.Map(mapNode,googleMapOptions);
+	googleMap = new google.maps.Map(this.options['mapNode'],googleMapOptions);
     }
     this.loadMap = loadMap;
 
@@ -193,15 +207,18 @@ function PlaceMap(parentNode) {
     // ----------------------------------------------------------
 
     function displayDirections(results) {
+	var directionNode = this.options['directionNode'];
+
+	if (directionNode != null) {
+
 	    // place POI along route
 	    var steps = results.routes[0].legs[0].steps;
-	   
-	    var directionNode = this.options['directionNode'];
-
+	    	    
 	    directionNode.innerHTML = "";
 	    for(var n = 0; n < steps.length; n++) {
 		directionNode.innerHTML += steps[n].instructions + "<br />";
 	    }
+	}
     }
     this.displayDirections = displayDirections;
     
@@ -334,7 +351,7 @@ function PlaceMap(parentNode) {
 		    var loc = path[path_n];
 		    var pOptions = {
 			types: this.options['placeTypes'],
-//			types: document.getElementById("cat").value.split(","),
+			//			types: document.getElementById("cat").value.split(","),
 			radius: this.options['placeRadius'],
 			location: loc
 		    };

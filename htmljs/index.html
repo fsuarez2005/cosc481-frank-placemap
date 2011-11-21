@@ -24,7 +24,11 @@
       function initialize() {
       var n = document.getElementById('testmap1');
       var defaultPlaceMap = new PlaceMap( n );
-      defaultPlaceMap.load();
+
+      defaultPlaceMap.options['directionNode'] = document.getElementById('directionNode');
+
+
+      defaultPlaceMap.loadDefaultInterface();
       defaultPlaceMap.loadMap();
       }
 
@@ -34,6 +38,8 @@
   <body onload="initialize()">
 
     <div id="testmap1"></div>
+
+    <div id="directionNode"></div>
 
   </body>
 </html>
