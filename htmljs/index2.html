@@ -45,6 +45,7 @@
       //alert(t);
       defaultPlaceMap.options['placeTypes'] = get_selected_list(document.forms['mapinput'].category);
       defaultPlaceMap.options['placeListNode'] = document.getElementById('placelist');
+      defaultPlaceMap.options['directionNode'] = document.getElementById('directionlist');
 
 
 
@@ -217,9 +218,12 @@
 
       </div>
 
-      <div id="testmap1" class="googlemap"></div>
+      <div id='rightcol'>
+        <div id="testmap1" class="googlemap"></div>
+        <div id="directionlist"></div>
+      </div>
 
-      <div id="directionlist"></div>
+      <div style='clear: both;'></div>
 
     </div>
 

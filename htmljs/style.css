@@ -33,6 +33,7 @@ select {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EDDAA6', endColorstr='#DBD0B2');
 
 	border: 1px solid black;
+	border-bottom-width: 0px;
 
 	text-align: left;
 	padding-top:5px;
@@ -52,7 +53,6 @@ select {
 	background-color: #FAFAED;
 
 	border: 1px solid black;
-	border-top-width: 0px;
 
         padding-top:5px;
         padding-bottom:5px;
@@ -72,7 +72,6 @@ select {
 	background-color: #FAFAED;
 
 	border: 1px solid black;
-	border-top-width: 0px;
 
         padding-top:5px;
         padding-bottom:5px;
@@ -90,10 +89,15 @@ select {
 	margin: 5px;
 }
 
+#rightcol {
+	width: 78%;
+	float: right;
+}
+
 .googlemap {
 	display: inline-block;
 	height: 600px;
-	width: 78%;
+	width: 98%;
 }
 
 #directionlist {
