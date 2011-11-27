@@ -46,9 +46,9 @@ function PlaceMap(parentNode) {
 	placeInterval: 100,
 	id: id,
 	parentNode: parentNode,
-	//	node: document.getElementById( id ), 
 	drivingStyle: google.maps.TravelMode.DRIVING,
-	marker_onclick: null, // marker callback function
+	// marker callback function
+	marker_onclick: new Function('event','currentMaps[\''+id+'\'].marker_onclick(event)'), 
 	maxPlaces:2000
     };
     
@@ -62,9 +62,8 @@ function PlaceMap(parentNode) {
     // public methods
 
     function marker_onclick(event) {
-
+	
 	openInfo(event.latLng.lat(),event.latLng.lng());
-
     }
     this.marker_onclick = marker_onclick;
 
@@ -138,14 +137,11 @@ function PlaceMap(parentNode) {
 	var m = latLngCache.get(latLng.toString());
 
 	var content_node = tag('div',{},[
-	    tag('a',{'href':'http://www.google.com'},[
-		text(m.place.name)
-	    ])
-
+	    text(m.place.name)
 	]);
 	
 	infowindow.setContent(content_node);
-	//infowindow.setContent(m.place.name);
+	
 
 	infowindow.setPosition(latLng);
 	infowindow.open(googleMap,m.marker);
@@ -260,8 +256,8 @@ function PlaceMap(parentNode) {
 		}
 		
 		if (placeListNode != null) {
-
-		    var c = 'currentMaps["'+id+'"].openInfo('+loc.lat()+','+loc.lng()+')';
+		    // XXX: terrible hack
+		    var c = '$("#tabs").tabs("select","#mapTab");currentMaps["'+id+'"].openInfo('+loc.lat()+','+loc.lng()+')';
 		    var t = tag('div',{onclick:c,'class':'placeitem'},[text(place.name)]);
 		    placeListNode.appendChild(t);
 
@@ -351,7 +347,6 @@ function PlaceMap(parentNode) {
 		    var loc = path[path_n];
 		    var pOptions = {
 			types: this.options['placeTypes'],
-			//			types: document.getElementById("cat").value.split(","),
 			radius: this.options['placeRadius'],
 			location: loc
 		    };
@@ -370,7 +365,7 @@ function PlaceMap(parentNode) {
 
 	}
 
-	alert(nSteps);
+
 
     }
     this.route_callback = route_callback;
