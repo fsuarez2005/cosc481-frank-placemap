@@ -1,0 +1,199 @@
+<!--
+    jQuery UI tabs test
+  -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>PlaceMap</title>
+
+
+    <script type="text/javascript"
+	    src="js/jquery-1.7.min.js"></script>
+
+    <script type="text/javascript"
+	    src="js/jquery-ui-1.8.16.custom.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css" />
+
+    
+
+    <script type="text/javascript"
+	    src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    
+
+    <!-- ------------------------------ -->
+
+    <link rel="stylesheet" type="text/css" href="css/web.css" />
+
+    <script type="text/javascript"
+	    src="js/util.js"></script>
+
+    <script type="text/javascript"
+	    src="js/placemap.js"></script>
+
+
+    <script type="text/javascript">
+      var nSteps = 0;
+      var defaultPlaceMap;
+
+
+      function initialize() {
+      setup_tabs();
+
+
+      var n = document.getElementById('testmap1');
+      defaultPlaceMap = new PlaceMap( n );
+
+      defaultPlaceMap.options['mapNode'] = document.getElementById('mapTab');
+      defaultPlaceMap.options['placeListNode'] = document.getElementById('placesTab');
+
+      defaultPlaceMap.options['originNode'] = document.getElementById('originNode');
+      defaultPlaceMap.options['destinationNode'] = document.getElementById('destinationNode');
+
+
+      defaultPlaceMap.options['directionNode'] = document.getElementById('directionsTab');
+
+
+      //defaultPlaceMap.loadDefaultInterface();
+      //defaultPlaceMap.loadMap();
+      }
+
+
+      function setup_tabs() {
+
+      $(function() {
+      $( "#tabs" ).tabs();
+      $("#tabs").tabs("select",0);
+      });
+
+
+
+     
+
+
+      }
+
+
+      function go_click(event){
+      // select map tab
+      $("#tabs").tabs("select","#mapTab");
+
+      // load map
+      defaultPlaceMap.loadMap();
+
+      // plot route with places
+      defaultPlaceMap.inputSubmit(event);
+
+}
+
+      // document onload
+      $(document).ready(function(event){
+
+      initialize();
+
+
+      });
+
+
+    </script>
+
+    <style type="text/css">
+
+      body {
+      overflow: hidden;
+}
+
+      #tabs,#testmap1 {
+      height:100%
+      }
+
+      #mapTab {
+      height:350px;
+      }
+
+      .inputLabel {
+      display:inline-block;
+      width:100px;
+      margin-bottom:15px;
+
+      }
+
+
+      input[type=text] {
+      padding:5px;
+      }
+
+
+      #placesTab {
+      height: 350px;
+      overflow-y: scroll;
+
+      }
+
+      #directionsTab {
+      height: 350px;
+      overflow-y: scroll;
+
+      }
+
+      div.placeitem {
+      cursor: default;
+      padding:5px;
+      background:inherit;
+      }
+
+      div.placeitem:hover {
+      background:#ccc;
+      }
+
+
+    </style>
+
+
+  </head>
+  <body>
+
+
+    <div id="testmap1">
+
+      <div id="tabs">
+	<ul>
+	  <li><a href="#startTab">Start</a></li>
+	  <li><a href="#placesTab">List of Places</a></li>
+	  <li><a href="#mapTab">Map</a></li>
+	  <li><a href="#directionsTab">Directions</a></li>
+	</ul>
+	<div id="startTab">
+
+
+
+<form style="border:1px solid gray;padding:15px;margin:auto;width:400px">
+<label class="inputLabel">Origin</label>
+<input type="text" name="origin" id="originNode" />
+<br />
+<label class="inputLabel">Destination</label>
+<input type="text" name="destination" id="destinationNode" />
+<br />
+<input type="button" value="Find Places" onclick="go_click(event)" />
+
+</form>
+
+
+
+
+
+
+
+
+	</div>
+	<div id="placesTab"></div>
+	<div id="mapTab"></div>
+	<div id="directionsTab"></div>
+      </div>
+      
+    </div><!-- End demo -->
+
+
+
+  </body>
+</html>
