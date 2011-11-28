@@ -41,7 +41,7 @@
       setup_tabs();
 
 
-      var n = document.getElementById('testmap1');
+      var n = document.getElementById('tabs');
       defaultPlaceMap = new PlaceMap( n );
 
       defaultPlaceMap.options['mapNode'] = document.getElementById('mapTab');
@@ -100,16 +100,25 @@
     <style type="text/css">
 
       body {
-      overflow: hidden;
+	background:blue;
+
+ /*     overflow: hidden;*/
 }
 
-      #tabs,#testmap1 {
-      height:100%
-      }
+      div#tabs {
+	display:block;
+	background:green;
 
-      #mapTab {
       height:350px;
       }
+
+	div#tabs > div {
+		display:block;
+		height:100%;
+		overflow-y: scroll;
+	}
+
+
 
       .inputLabel {
       display:inline-block;
@@ -123,7 +132,7 @@
       padding:5px;
       }
 
-
+/*
       #placesTab {
       height: 350px;
       overflow-y: scroll;
@@ -135,6 +144,16 @@
       overflow-y: scroll;
 
       }
+
+
+      #mapTab {
+      height:90%;
+      }
+
+
+*/
+
+
 
       div.placeitem {
       cursor: default;
@@ -152,10 +171,6 @@
 
   </head>
   <body>
-
-
-    <div id="testmap1">
-
       <div id="tabs">
 	<ul>
 	  <li><a href="#startTab">Start</a></li>
@@ -169,10 +184,10 @@
 
 <form style="border:1px solid gray;padding:15px;margin:auto;width:400px">
 <label class="inputLabel">Origin</label>
-<input type="text" name="origin" id="originNode" />
+<input type="text" name="origin" id="originNode"  value="ypsilanti, mi" />
 <br />
 <label class="inputLabel">Destination</label>
-<input type="text" name="destination" id="destinationNode" />
+<input type="text" name="destination" id="destinationNode" value="detroit, mi" />
 <br />
 <input type="button" value="Find Places" onclick="go_click(event)" />
 
@@ -191,7 +206,6 @@
 	<div id="directionsTab"></div>
       </div>
       
-    </div><!-- End demo -->
 
 
 
