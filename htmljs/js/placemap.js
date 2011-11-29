@@ -62,10 +62,29 @@ function PlaceMap(parentNode) {
     // public methods
 
     function marker_onclick(event) {
-	
-	openInfo(event.latLng.lat(),event.latLng.lng());
+	getPlaceDetails(event.latLng.lat(), event.latLng.lng());
     }
     this.marker_onclick = marker_onclick;
+
+    function getPlaceDetails(lat, lng) {
+	var temp = latLngCache.get(new google.maps.LatLng(lat, lng));
+
+	var request = {
+		reference: temp.place.reference
+	};
+	service = new google.maps.places.PlacesService(googleMap);
+
+	var function_body = 'currentMaps[\''+id+'\'].callback_placeDetails(place,status);';
+	var callback_func = new Function('place','status',function_body);
+
+	service.getDetails(request, callback_func);
+    }
+    this.getPlaceDetails = getPlaceDetails;
+
+    function callback_placeDetails(place, status) {
+        openInfo(place.geometry.location.lat(), place.geometry.location.lng(), "<div><b>" + place.name + "</b><br />" + place.formatted_address + "<br />" + place.formatted_phone_number + "</div>");
+    }
+    this.callback_placeDetails = callback_placeDetails;
 
     function inputSubmit(event) {
 	
@@ -131,21 +150,37 @@ function PlaceMap(parentNode) {
     this.loadDefaultInterface = loadDefaultInterface;
 
     // default info window callback
-    function openInfo(lat,lng) {
+    function openInfo(lat,lng,content) {
 	var latLng = new google.maps.LatLng(lat,lng);
 
+
+	if (content == null) {
 	var m = latLngCache.get(latLng.toString());
 
-	var content_node = tag('div',{},[
+	var content = tag('div',{},[
 	    text(m.place.name)
 	]);
-	
-	infowindow.setContent(content_node);
-	
+	}
 
+
+	infowindow.setContent(content);
 	infowindow.setPosition(latLng);
-	infowindow.open(googleMap,m.marker);
-    }
+	
+	if (m != null) {
+		infowindow.open(googleMap,m.marker);
+    
+	} else {
+	infowindow.open(googleMap);
+
+
+}
+
+
+
+
+
+
+}
     this.openInfo = openInfo;
 
     var googleMap;
@@ -209,7 +244,7 @@ function PlaceMap(parentNode) {
 
 	    // place POI along route
 	    var steps = results.routes[0].legs[0].steps;
-	    	    
+	    	   
 	    directionNode.innerHTML = "";
 	    for(var n = 0; n < steps.length; n++) {
 		directionNode.innerHTML += steps[n].instructions + "<br />";
@@ -257,7 +292,7 @@ function PlaceMap(parentNode) {
 		
 		if (placeListNode != null) {
 		    // XXX: terrible hack
-		    var c = '$("#tabs").tabs("select","#mapTab");currentMaps["'+id+'"].openInfo('+loc.lat()+','+loc.lng()+')';
+		    var c = '$("#tabs").tabs("select","#mapTab");currentMaps["'+id+'"].getPlaceDetails('+loc.lat()+','+loc.lng()+')';
 		    var t = tag('div',{onclick:c,'class':'placeitem'},[text(place.name)]);
 		    placeListNode.appendChild(t);
 
