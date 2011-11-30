@@ -22,14 +22,19 @@ function PlaceMap(parentNode) {
 
     var numPlaces = 0;
     var markers = new Array();
+
+    // TODO: setter/getter
     this.recentRoute = null;
 
-
+    // TODO: parentNode may not have an id property
     var id = parentNode.getAttribute('id');
 
     // register map id callbacks can work
     currentMaps[id] = this;
 
+
+    // TODO: make options more complete
+    // TODO: setter/getter
     this.options = {
 	inputNode: null,
 	mapNode: null,
@@ -50,6 +55,7 @@ function PlaceMap(parentNode) {
 	// marker callback function
 	marker_onclick: new Function('event','currentMaps[\''+id+'\'].marker_onclick(event)'), 
 	maxPlaces:2000
+	
     };
     
 
@@ -58,67 +64,18 @@ function PlaceMap(parentNode) {
     var routeRenderer = new google.maps.DirectionsRenderer();
 
 
+    var googleMap;
+    var googleMapOptions = {
+	zoom: 11,
+	center: new google.maps.LatLng(42.25104295126321,-83.62424351776122), // EMU campus
+	mapTypeId: google.maps.MapTypeId.ROADMAP,
+	overviewMapControl: true,
+	rotateControl: true,
+	streetViewControl: true
+    }
+
     // =======================================================
     // public methods
-
-    function marker_onclick(event) {
-	getPlaceDetails(event.latLng.lat(), event.latLng.lng());
-    }
-    this.marker_onclick = marker_onclick;
-
-    function getPlaceDetails(lat, lng) {
-	var temp = latLngCache.get(new google.maps.LatLng(lat, lng));
-
-	var request = {
-		reference: temp.place.reference
-	};
-	service = new google.maps.places.PlacesService(googleMap);
-
-	var function_body = 'currentMaps[\''+id+'\'].callback_placeDetails(place,status);';
-	var callback_func = new Function('place','status',function_body);
-
-	service.getDetails(request, callback_func);
-    }
-    this.getPlaceDetails = getPlaceDetails;
-
-    function callback_placeDetails(place, status) {
-	var content = '<div>';
-
-	content = content + "<img src='" + place.icon + "' /><br />";
-
-	content = content + "<b><a href='" + place.url + "'>" + place.name + "</a></b>";
-	if(place.rating != null){
-	    content = content + " Rating: " + place.rating;
-	}
-	if(place.formatted_address != null){
-	    content = content + "<br />" + place.formatted_address;
-	}
-	if(place.formatted_phone_number != null){
-	    content = content + "<br />" + place.formatted_phone_number;
-	}
-	if(place.rating != null){
-	    content = content +  "<br /><a href='" + place.website + "'>" + place.website + "</a>";
-	}
-
-	content = content + "</div>";
-
-        openInfo(place.geometry.location.lat(), place.geometry.location.lng(), content);
-    }
-    this.callback_placeDetails = callback_placeDetails;
-
-    function inputSubmit(event) {
-	
-	//var inputElements = document.getElementById(id).childNodes[0].childNodes[0].childNodes[0];
-	//var origin = inputElements.childNodes[2];
-	//var destination = inputElements.childNodes[5];
-
-	this.plotRoute(this.options['originNode'].value,this.options['destinationNode'].value);
-
-
-
-    }
-    this.inputSubmit = inputSubmit;
-
     // loads initial user interface
     function loadDefaultInterface() {
 	this.options['marker_onclick'] = new Function('event','currentMaps[\''+id+'\'].marker_onclick(event)');
@@ -168,18 +125,52 @@ function PlaceMap(parentNode) {
 	parentNode.appendChild(n);
     }
     this.loadDefaultInterface = loadDefaultInterface;
+    // ----------------------------------------------------------
+    function loadMap() {
+	// use place map id as div id for map
+	googleMap = new google.maps.Map(this.options['mapNode'],googleMapOptions);
+    }
+    this.loadMap = loadMap;
+    // ----------------------------------------------------------
+    // TODO: implement
+    function clearMap() {}
 
+
+    // ----------------------------------------------------------
+    function marker_onclick(event) {
+	getPlaceDetails(event.latLng.lat(), event.latLng.lng());
+    }
+    this.marker_onclick = marker_onclick;
+
+    // ----------------------------------------------------------
+    function inputSubmit(event) {
+	this.plotRoute(this.options['originNode'].value,this.options['destinationNode'].value);
+    }
+    this.inputSubmit = inputSubmit;
+    // ----------------------------------------------------------
+    function getMap () {
+	return googleMap;
+    }
+    this.getMap = getMap;
+
+    // ----------------------------------------------------------
+    function setGoogleMapOption(k,v) {
+	googleMapOptions[k] = v;
+    }
+    this.setGoogleMapOption = setGoogleMapOption;
+
+    // ----------------------------------------------------------
     // default info window callback
     function openInfo(lat,lng,content) {
 	var latLng = new google.maps.LatLng(lat,lng);
 
 
 	if (content == null) {
-	var m = latLngCache.get(latLng.toString());
+	    var m = latLngCache.get(latLng.toString());
 
-	var content = tag('div',{},[
-	    text(m.place.name)
-	]);
+	    var content = tag('div',{},[
+		text(m.place.name)
+	    ]);
 	}
 
 
@@ -187,63 +178,44 @@ function PlaceMap(parentNode) {
 	infowindow.setPosition(latLng);
 	
 	if (m != null) {
-		infowindow.open(googleMap,m.marker);
-    
+	    infowindow.open(googleMap,m.marker);
+	    
 	} else {
-	infowindow.open(googleMap);
+	    infowindow.open(googleMap);
 
 
-}
-
-
-
+	}
 
 
 
-}
+
+
+
+    }
     this.openInfo = openInfo;
 
-    var googleMap;
-    var googleMapOptions = {
-	zoom: 11,
-	center: new google.maps.LatLng(42.25104295126321,-83.62424351776122), // EMU campus
-	mapTypeId: google.maps.MapTypeId.ROADMAP,
-	overviewMapControl: true,
-	rotateControl: true,
-	streetViewControl: true
-    }
+
     
-    // ----------------------------------------------------------
-    function getMap () {
-	return googleMap;
-    }
-    this.getMap = getMap;
-
-    function setGoogleMapOption(k,v) {
-	googleMapOptions[k] = v;
-    }
-    this.setGoogleMapOption = setGoogleMapOption;
-    // ----------------------------------------------------------
-    function loadMap() {
-	// use place map id as div id for map
-	googleMap = new google.maps.Map(this.options['mapNode'],googleMapOptions);
-    }
-    this.loadMap = loadMap;
-
-    function clearMap() {
-
-
-    }
 
     // ----------------------------------------------------------
-    function placeMarker(location) {
-	var marker = new google.maps.Marker({
-	    position: location, 
-	    map: googleMap
-	});
+    function displayDirections(results) {
+	var directionNode = this.options['directionNode'];
+
+	if (directionNode != null) {
+
+	    // place POI along route
+	    var steps = results.routes[0].legs[0].steps;
+	    
+	    directionNode.innerHTML = "";
+	    for(var n = 0; n < steps.length; n++) {
+		directionNode.innerHTML += steps[n].instructions + "<br />";
+	    }
+	}
     }
-    this.placeMarker = placeMarker;
+    this.displayDirections = displayDirections;
+
     // ----------------------------------------------------------
+
     function findPlaces(requestObject) {
 	service = new google.maps.places.PlacesService(googleMap);
 
@@ -255,27 +227,6 @@ function PlaceMap(parentNode) {
     }
     this.findPlaces = findPlaces;
 
-    // ----------------------------------------------------------
-
-    function displayDirections(results) {
-	var directionNode = this.options['directionNode'];
-
-	if (directionNode != null) {
-
-	    // place POI along route
-	    var steps = results.routes[0].legs[0].steps;
-	    	   
-	    directionNode.innerHTML = "";
-	    for(var n = 0; n < steps.length; n++) {
-		directionNode.innerHTML += steps[n].instructions + "<br />";
-	    }
-	}
-    }
-    this.displayDirections = displayDirections;
-    
-
-    // ==========================================================
-    // callbacks
     function callback_placeSearch(results,status) {
 
 
@@ -296,8 +247,6 @@ function PlaceMap(parentNode) {
 		var m = new google.maps.Marker({
 		    map: googleMap,
 		    position: loc
-		    //title: place.name // use infowindow for info instead of tooltip
-		    // animation: google.maps.Animation.DROP // too slow
 		});
 
 		// XXX may overlap
@@ -312,7 +261,8 @@ function PlaceMap(parentNode) {
 		
 		if (placeListNode != null) {
 		    // XXX: terrible hack
-		    var c = '$("#tabs").tabs("select","#mapTab");currentMaps["'+id+'"].getPlaceDetails('+loc.lat()+','+loc.lng()+')';
+		    var c = '$("#tabs").tabs("select","#mapTab");currentMaps["'+id+'"].getPlaceDetails('+
+			loc.lat()+','+loc.lng()+')';
 		    var t = tag('div',{onclick:c,'class':'placeitem'},[text(place.name)]);
 		    placeListNode.appendChild(t);
 
@@ -424,32 +374,51 @@ function PlaceMap(parentNode) {
 
     }
     this.route_callback = route_callback;
+    // ----------------------------------------------------------
 
+    function getPlaceDetails(lat, lng) {
+	var temp = latLngCache.get(new google.maps.LatLng(lat, lng));
+
+	var request = {
+	    reference: temp.place.reference
+	};
+	service = new google.maps.places.PlacesService(googleMap);
+
+	var function_body = 'currentMaps[\''+id+'\'].callback_placeDetails(place,status);';
+	var callback_func = new Function('place','status',function_body);
+
+	service.getDetails(request, callback_func);
+    }
+    this.getPlaceDetails = getPlaceDetails;
+
+    function callback_placeDetails(place, status) {
+	var content = '<div>';
+
+	content = content + "<img src='" + place.icon + "' /><br />";
+
+	content = content + "<b><a href='" + place.url + "'>" + place.name + "</a></b>";
+	if(place.rating != null){
+	    content = content + " Rating: " + place.rating;
+	}
+	if(place.formatted_address != null){
+	    content = content + "<br />" + place.formatted_address;
+	}
+	if(place.formatted_phone_number != null){
+	    content = content + "<br />" + place.formatted_phone_number;
+	}
+	if(place.rating != null){
+	    content = content +  "<br /><a href='" + place.website + "'>" + place.website + "</a>";
+	}
+
+	content = content + "</div>";
+
+        openInfo(place.geometry.location.lat(), place.geometry.location.lng(), content);
+    }
+    this.callback_placeDetails = callback_placeDetails;
 
 
 
 }
-
-
-// ==========================================
-
-
-
-
-function setupUI() {
-    // set up onload
-
-
-}
-
-function body_onload() {
-
-
-
-
-}
-
-
 
 
 
