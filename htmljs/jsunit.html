@@ -1,0 +1,84 @@
+<html>
+        <head></head>
+        <body>
+                <script type="text/javascript" src="js/util.js"></script>
+                <script type="text/javascript" src="js/placemap.js"></script>
+                <script type="text/javascript" src="js/jsunit-small.js"></script>
+                
+		<h1>PlaceMap Tests</h1>
+                <h3>Util.js - Functions</h3>
+                <tt>
+                <script type="text/javascript">
+
+                        function UtilTestCase() {
+                                this.test_Tag = function() {
+                                        var testNode = tag("testtag", {'id':'testtagid'})
+                                        assert.equals(testNode.id, 'testtagid');
+                                };
+                        };
+                        runner.documentTestCaseRunner(new UtilTestCase());
+                        
+                </script>
+                </tt>
+                <h3>Util.js - Dictionary Class</h3>
+                <tt>
+                <script type="text/javascript">
+
+                        function DictTestCase() {
+                                this.dictTests = new util.Dict();
+
+                                this.test_add = function() {
+                                        this.dictTests.add("key","data");
+                                        assert.equals(this.dictTests.length(), 1);
+                                };
+                                this.test_handle_duplicate = function() {
+                                        this.dictTests.add("key","data");
+                                        assert.equals(this.dictTests.length(), 1);
+                                };
+                                this.test_has_key = function() {
+                                        assert.equals(this.dictTests.has_key("key"), true);
+                                };
+                                this.test_get = function() {
+                                        assert.equals(this.dictTests.get("key"), "data");
+                                };
+                                this.test_remove = function() {
+                                        this.dictTests.remove("key");
+                                        assert.equals(this.dictTests.length(), 0);
+                                };
+                        };
+                        runner.documentTestCaseRunner(new DictTestCase());
+                        
+                </script>
+                </tt>
+                <h3>PlaceMap.js - Dictionary Class</h3>
+                <tt>
+                <script type="text/javascript">
+
+                        function PlaceMapTestCase() {
+                                this.dictTests = new util.Dict();
+
+                                this.test_add = function() {
+                                        this.dictTests.add("key","data");
+                                        assert.equals(this.dictTests.length(), 1);
+                                };
+                                this.test_handle_duplicate = function() {
+                                        this.dictTests.add("key","data");
+                                        assert.equals(this.dictTests.length(), 1);
+                                };
+                                this.test_has_key = function() {
+                                        assert.equals(this.dictTests.has_key("key"), true);
+                                };
+                                this.test_get = function() {
+                                        assert.equals(this.dictTests.get("key"), "data");
+                                };
+                                this.test_remove = function() {
+                                        this.dictTests.remove("key");
+                                        assert.equals(this.dictTests.length(), 0);
+                                };
+                        };
+                        runner.documentTestCaseRunner(new PlaceMapTestCase());
+                        
+                </script>
+                </tt>
+        </body>
+</html>

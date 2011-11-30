@@ -14,7 +14,8 @@
       b.failed{ color:red; }
     </style>
 
-    <script type="text/javascript" src="placemap.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript" src="js/placemap.js"></script>
 
     <script type="text/javascript">
       var passed = 0;
@@ -43,12 +44,21 @@
         //test our test case function
         evalTest(true, "test-ts-pass");
         evalTest(false, "test-ts-fail");
-        //reset the scores to zero... If they're off at this point our test system isn't even valid.
+	if((passed != 1) || (failed != 1))
+		alert("Something is extremely wrong with the testing system. Don't trust any tests");
+        //reset the scores to zero... If they're off at this point our test system isn't even valid and you should have recieved a popup window.
         // so we at this point should trust it.
         passed--;
         failed--;
-        //begin our real tests
-        var dictTests = new Dict();
+//begin our real tests
+	//util tests
+	var testNode = tag("testtag", {'id':'testtagid'});
+	evalTest(testNode.id == 'testtagid', "test-util-tag");
+	clearNode(testNode);
+	alert(testNode.id);
+	evalTest(testNode.id == null, "test-util-clear");	
+	//dict tests
+        var dictTests = new util.Dict();
         dictTests.add("key","data");
         evalTest(dictTests.length() == 1, "test-dict-add");
         dictTests.add("key","data");
@@ -57,6 +67,8 @@
         evalTest(dictTests.get("key") == "data", "test-dict-get");
         dictTests.remove("key");
         evalTest(dictTests.length() == 0, "test-dict-remove");
+	//placemap tests
+	
         updateScores();
       }
     </script>
@@ -68,6 +80,9 @@
           <h3>Test Suite Self Tests (Not counted in final score)</h3>
           <p>test pass: <b class="working" id="test-ts-pass">running tests</b> (If test failed the following tests shouldn't be trusted)</p>
           <p>test fail: <b class="working" id="test-ts-fail">running tests</b> (If test passed the following tests shouldn't be trusted)</p>
+          <h3>Util tests</h3>
+          <p>Tag function <b class="working" id="test-util-tag">running tests</b></p>
+          <p>ClearNode function <b class="working" id="test-util-clear">running tests</b></p>
           <h3>Dictionary Class Tests</h3>
           <p>Dictionary add: <b class="working" id="test-dict-add">running tests</b></p>
           <p>Dictionary Doesn't Add Duplicate: <b class="working" id="test-dict-add-dup">running tests</b></p>
