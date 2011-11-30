@@ -1,74 +1,65 @@
-
-
-html {}
-
 body {
     margin:0px;
     padding:0px;
 }
 
 
-/*
-div.mapdiv {
+body {
+    
+    padding:0px;
+    overflow: hidden;
+}
+
+/* ==================================== */
+/* tabbed interface */
+
+div#tabs {
+    padding:0px;
+    margin:0px;
     position:absolute;
-    top:0px;
-    left:30%;
-    width:70%;
+    display:block;
+
     height:100%;
-    background:green;
-
+    width:100%;
 }
 
-div.inputdiv {
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:30%;
-    height:50%;
-    background:#ddf;
+div#tabs > div {
+    display:block;
+    height:80%;
+    overflow-y: scroll;
 }
 
-div.inputdiv input {
-    border:1px solid black;
-    padding:2px;
-    margin-bottom:2px;
-    
-
-}
-
-div.inputdiv label {
+.inputLabel {
     display:inline-block;
-    width: 90px;
-    font-weight:bold;
+    width:100px;
+    margin-bottom:15px;
 }
 
-div.placelistdiv {
-    position:absolute;
-    top:50%;
-    left:0px;
-    width:30%;
-    height:50%;
-    background:#fafafa;
-
-    overflow-y:scroll;
-    
-
+input[type=text] {
+    padding:5px;
+    width: 250px;
 }
 
-div.placelistdiv div.placeitem {
+select {
+    padding:5px;
+    background: white;
+    width: 250px:
+}
+
+div.placeitem {
+    cursor: default;
     padding:5px;
     background:inherit;
 }
 
-div.placelistdiv div.placeitem:hover {
-    cursor: default;
-    background:#cccccc;
-   
+div.placeitem:hover {
+    background:#ccc;
 }
 
+/* ==================================== */
+/* old builtin interface */
 
-
-*/
+/*
 
 div#testmap1 {
     position:absolute;
@@ -118,35 +109,4 @@ div.inputdiv label {
     font-weight:bold;
 }
 
-div.placeListDiv {
-    position:absolute;
-    display:none;
-   
-    background:#fafafa;
-
-    top:500px;
-    left:0px;
-    height:200px;
-    width:500px;
-    overflow-y: scroll;
-    
-
-}
-
-div.placeListDiv div.placeitem {
-    padding:5px;
-    background:inherit;
-}
-
-div.placeListDiv div.placeitem:hover {
-    cursor: default;
-    background:#cccccc;
-   
-}
-
-
-
-div.directiondiv {
-    display:none;
-}
-
+*/
