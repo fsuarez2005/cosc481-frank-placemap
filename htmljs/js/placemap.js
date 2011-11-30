@@ -82,7 +82,27 @@ function PlaceMap(parentNode) {
     this.getPlaceDetails = getPlaceDetails;
 
     function callback_placeDetails(place, status) {
-        openInfo(place.geometry.location.lat(), place.geometry.location.lng(), "<div><b>" + place.name + "</b><br />" + place.formatted_address + "<br />" + place.formatted_phone_number + "</div>");
+	var content = '<div>';
+
+	content = content + "<img src='" + place.icon + "' /><br />";
+
+	content = content + "<b><a href='" + place.url + "'>" + place.name + "</a></b>";
+	if(place.rating != null){
+	    content = content + " Rating: " + place.rating;
+	}
+	if(place.formatted_address != null){
+	    content = content + "<br />" + place.formatted_address;
+	}
+	if(place.formatted_phone_number != null){
+	    content = content + "<br />" + place.formatted_phone_number;
+	}
+	if(place.rating != null){
+	    content = content +  "<br /><a href='" + place.website + "'>" + place.website + "</a>";
+	}
+
+	content = content + "</div>";
+
+        openInfo(place.geometry.location.lat(), place.geometry.location.lng(), content);
     }
     this.callback_placeDetails = callback_placeDetails;
 
