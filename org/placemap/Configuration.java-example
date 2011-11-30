@@ -1,8 +1,0 @@
-
-package org.placemap;
-
-public class Configuration {
-    public static String mapQuestApiKey = "";
-    public static String googlePlacesApiKey = "";
-    public static String databaseServerIP = "";
-}
