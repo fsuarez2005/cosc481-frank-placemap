@@ -396,7 +396,7 @@ function PlaceMap(parentNode) {
 
 	content = content + "<img src='" + place.icon + "' /><br />";
 
-	content = content + "<b><a href='" + place.url + "'>" + place.name + "</a></b>";
+	content = content + "<b><a target='_blank' href='" + place.url + "'>" + place.name + "</a></b>";
 	if(place.rating != null){
 	    content = content + " Rating: " + place.rating;
 	}
@@ -407,7 +407,7 @@ function PlaceMap(parentNode) {
 	    content = content + "<br />" + place.formatted_phone_number;
 	}
 	if(place.rating != null){
-	    content = content +  "<br /><a href='" + place.website + "'>" + place.website + "</a>";
+	    content = content +  "<br /><a target='_blank' href='" + place.website + "'>" + place.website + "</a>";
 	}
 
 	content = content + "</div>";
