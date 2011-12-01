@@ -392,9 +392,10 @@ function PlaceMap(parentNode) {
     this.getPlaceDetails = getPlaceDetails;
 
     function callback_placeDetails(place, status) {
-	var content = '<div>';
+	var content = '<div class="markerContent">';
 
-	content = content + "<img src='" + place.icon + "' /><br />";
+	// XXX: icon is generic
+	//content = content + "<img src='" + place.icon + "' /><br />";
 
 	content = content + "<b><a target='_blank' href='" + place.url + "'>" + place.name + "</a></b>";
 	if(place.rating != null){

@@ -21,6 +21,9 @@ The current version is XHTML/Javascript based and uses Google Maps.
 
 The htmljs/ directory contains the necessary XHTML and Javascript files to view the map. 
 
+htmljs/tabs.html
+	The HTML and Javascript program.
+
 ########### CONFIGURATION LOG ###########
 
 The configuration log required for week 3 is in
@@ -29,4 +32,7 @@ log/git.log
 
 ############ UNIT TESTS ############
 
+Unit Tests have been created using the JSUnit-small library.
 
+htmljs/jsunit.html
+	Runs the Unit Tests.

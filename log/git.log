@@ -1,3 +1,461 @@
+commit 2c1152d7dce38d1c19029ce6add558009df31e80
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Nov 30 19:06:53 2011 -0500
+
+    This is what I have so far for the placemap tests. I'll finish it up after my next class.
+
+commit 6506fdc582398b907b5c3a3bb87f52f02fe3527b
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 30 18:42:14 2011 -0500
+
+    make marker links open in new tab
+
+commit c52b808d77c52f7b36d8b8a9f3a24005dff3e9ae
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 30 18:33:54 2011 -0500
+
+    reorganized placemap.js
+
+commit 1ea0cfdeab59a7c0abc181901a7959c88ea02695
+Merge: 51ee1f6 27a18d1
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Nov 30 18:27:52 2011 -0500
+
+    Merge branch 'master' of https://github.com/fsuarez2005/cosc481-frank-placemap
+
+commit 51ee1f65c4d4fd526187e02943bac531d1361e2a
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Nov 30 18:27:45 2011 -0500
+
+    Moved from our old homebrew test system to jsunit. loading htmljs/jsunit.html should run our test cases. It's not finished yet. The tests listed under the PlaceMap.js tests are just exact copies of the dictionary test cases, but it's a start. I guess.
+
+commit 27a18d1a11f874072261e802f1aa5067a12bf017
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 30 17:51:34 2011 -0500
+
+    updated README
+
+commit c73e1b06b44f75c4bae31c3acd8c147812e3d830
+Author: unknown <class@.(none)>
+Date:   Wed Nov 30 17:28:42 2011 -0500
+
+    removed development-bundle
+
+commit 72ac5524a679fd74040c42d552c612d74f5aa877
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 30 16:21:59 2011 -0500
+
+    updated css to make the tabs near 100% of window
+    
+    the problem lies in that the container div needed to be absolute position.
+    it's position could be automatic but needed to be absolute. the tab content
+    is still set to 80% to prevent runoff and the body's overflow is set to
+    hidden due to the scrollbars causing runoff. there is no 'fill in the rest
+    of the div' in css as far as i know and the tab button heights may be hard
+    to get at.
+
+commit c2e4f231bd93b027513788cdd5db328a3dcc9c13
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Nov 30 15:52:46 2011 -0500
+
+    I've updated the page info popup page or whatever it should be called. It still could use some work.
+
+commit 4f169f9362918461ba25089eac87556fcfd9662d
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 30 14:16:12 2011 -0500
+
+    master branch now only contains the working program. ununsed Java is in a separate branch. The branch could be safely merge into this branch if you need it.
+
+commit 3f5657035103ff0f594d5dca2d1073dfca9fbe68
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 30 14:11:38 2011 -0500
+
+    moved unfinised java to new branch
+
+commit cae2a9740039769bcd005393697d3641250183c9
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Mon Nov 28 21:42:46 2011 -0500
+
+    updated sed script
+
+commit 60a8cb816d7e14407476b0eace76ea9700cf07ab
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Mon Nov 28 20:15:36 2011 -0500
+
+    I added the categories select box back to the page.
+
+commit 6cf2ee54acf2e31f8fda25f644c5389c1c14b6a7
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Mon Nov 28 20:10:12 2011 -0500
+
+    updated sed script
+
+commit 672a39cf152f0e80a45d62db72c3b471c61bc1d5
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Mon Nov 28 19:39:00 2011 -0500
+
+    Places now list address and phone numbers.
+
+commit 41e133dbadfd579d6b2ad04dc30f26957df7eb4e
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Mon Nov 28 18:46:52 2011 -0500
+
+    changed tabs.html. playing around with css. height is still an issue.
+
+commit 8f3b51be728bf14304181fc61e83aeaf7b9c6cc3
+Merge: 363e051 78131b5
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Mon Nov 28 17:48:52 2011 -0500
+
+    Merge branch 'master' of https://github.com/fsuarez2005/cosc481-frank-placemap
+
+commit 7ee3557aae10df4889bc4f1b0783b90c4acf2a66
+Merge: 50385e8 78131b5
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Mon Nov 28 06:41:11 2011 -0800
+
+    Merge pull request #4 from fsuarez2005/master
+    
+    New Tabbed Interface
+
+commit 78131b562cf848faa9fd23897b63b7bd191cd256
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Sat Nov 26 21:28:33 2011 -0500
+
+    added overflow css to directions tab
+
+commit 803c29fe8d684e89cc8be5fa513b8f7f67a81263
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Sat Nov 26 20:14:45 2011 -0500
+
+    improved the tabbed interface.
+
+commit ef0a378f66ee52e6dd00611ebc4899a487cd1c7d
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Fri Nov 25 21:45:57 2011 -0500
+
+    improving the tabbed interface. see full commit for problems...
+    
+    Because the Google Map is in the jQuery tabs, some UI problems may occur.
+    The InfoWindow stopped working, but does work for what is the default
+    (popups on origin and destination).
+    
+    Because of limited screen space, putting the input form in a tab makes
+    sense. Adding functionality to the existing parts of PlaceMap shouldn't be a
+    problem.
+
+commit 789c056bd368353b0342dc720d28d5e9e04be38b
+Merge: 9563182 46a8dea
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Fri Nov 25 15:37:00 2011 -0500
+
+    Merge branch 'nathan' into htmljsnew2
+
+commit 956318279594ee94606c328883fa618c80df8d37
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Fri Nov 25 15:28:31 2011 -0500
+
+    created tabbed interface test
+
+commit fdd8238351faa4fed847293e5e5e1f5109e1ccc4
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Fri Nov 25 15:03:50 2011 -0500
+
+    added jquery and jquery UI. move js and css to directories
+
+commit 751ff68d1bbc306d07d54f0e876e4986977b2c93
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Sun Nov 20 21:19:01 2011 -0500
+
+    trying to merge the changes from nathan's and frank's htmljs interface and creating the new layout.
+
+commit f3ec4f5d74a6a112eb020ba15451ceffe58f92d7
+Merge: b617e2e 8fb0fa8
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Sun Nov 20 20:14:50 2011 -0500
+
+    merge with nathan/htmljs2
+
+commit 363e0512010d58db38aeb7a5fe979504a88048b7
+Merge: 5cbd351 b617e2e
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Sun Nov 20 19:38:36 2011 -0500
+
+    Merge branch 'htmljsnew' of https://github.com/fsuarez2005/cosc481-frank-placemap
+
+commit 46a8dea9d26c3255508ae14a342e463d8216bee5
+Merge: 5cbd351 b617e2e
+Author: unknown <class@.(none)>
+Date:   Sun Nov 20 19:31:16 2011 -0500
+
+    Merge remote-tracking branch 'origin/htmljsnew' into nathan
+
+commit 8fb0fa8d202214f0c4b0db47f333a360dac3a3a9
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Sun Nov 20 19:19:18 2011 -0500
+
+    Really ugly direction display code
+
+commit b617e2e57610ee849306352d2cf7baa05c60c5d7
+Author: unknown <class@.(none)>
+Date:   Sun Nov 20 18:57:18 2011 -0500
+
+    updated htmljs
+
+commit a529dbc64cdafd40f843f2dd10bd11ac4b768493
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Sun Nov 20 15:12:37 2011 -0500
+
+    changing the HTML/JS interface to new layout. Will incorporate Nathan's ideas.
+
+commit 50385e809160322393f9dc2baf27fb91c7a6ecdc
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Sun Nov 20 13:38:52 2011 -0500
+
+    example test gui
+
+commit 5cbd3513ae9ab8676b93957ea22ca21bd2687299
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Tue Nov 15 23:13:33 2011 -0500
+
+    added week 5 reflection
+
+commit 3ef4467eb2599feae8f090e497ffbae7c0ad9f28
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Tue Nov 15 23:09:42 2011 -0500
+
+    removed empty directory
+
+commit a22ebdfe8f80413eeb0047aaa1fecba08fb58e3c
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Tue Nov 15 23:04:48 2011 -0500
+
+    merging nathans repo and cleaning it up.
+    
+    removing class files because they aren't needed.
+
+commit 7f521aa072cc26304fdd20e00c8c57ce871ed7bd
+Merge: 08bd10b ff7a007
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Tue Nov 15 22:54:51 2011 -0500
+
+    Merge remote branch 'nathan/master'
+
+commit 4becb23de3f8f938780f5dede80c3765659b30dd
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Mon Nov 14 23:58:05 2011 -0500
+
+    updating htmljs
+    
+    creating util.js with util namespace for commonly used javascript functions and classes. separated css from index.html
+
+commit 08bd10be938c6b60023dfcc55f2bb233349a55f5
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Mon Nov 14 00:28:36 2011 -0500
+
+    updated readme file
+
+commit 39732fcfec4a8babc692a4708f253c0d156a4e7e
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Thu Nov 10 17:55:57 2011 -0500
+
+    fixed css bug for newer browsers
+
+commit 05aad3c5f7fb3579ffb64ada24002ecbaa51d143
+Merge: 0c66621 4f36ca4
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Thu Nov 10 16:01:18 2011 -0500
+
+    Merge branch 'junit' into merging
+
+commit 0c6662159a02bca0d0bbf1a47c2cbdee459b0e7a
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Thu Nov 10 15:55:58 2011 -0500
+
+    working on a better looking web interface with categories.
+    new file:   cat2html.sed
+    	used to convert category list to html
+    
+    new file:   categories.txt
+    	list of categories
+    
+    modified:   index.html
+    	Nathan's test with categories
+    
+    modified:   index2.html
+    	My new interface
+
+commit c60a7b651874ea4900873619b6576ce252d9dcf4
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 9 22:41:59 2011 -0500
+
+    added Nathan's Javascript test suite
+
+commit 0cb22ad6c8a45cc681f98a3beef5d6e339e07763
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 9 22:25:14 2011 -0500
+
+    added place selecting using the list
+
+commit ff7a0074ebbeab859d2d4b9d1463ec09276a8231
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Nov 9 21:29:19 2011 -0500
+
+    I finally added in the test case system for Javascript. I've also included the category system. You must have a space between each category keyword to search for multiple types of places. Leaving it blank will obviously search for any place.
+
+commit 273552545bbfce3b36321a15dff0535ace6d40b8
+Merge: 0e706c2 184c714
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Nov 9 20:53:11 2011 -0500
+
+    Merge branch 'htmljs' of git://github.com/fsuarez2005/cosc481-frank-placemap
+
+commit 0e706c24f86e60a84cc9400e16a03169527ffd99
+Merge: 8e92987 6b9999e
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Nov 9 20:50:58 2011 -0500
+
+    Merge branch 'master' of git://github.com/fsuarez2005/cosc481-frank-placemap
+
+commit 184c7141e98ddbd89f204f1c7148c14d342f24e5
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 9 19:57:21 2011 -0500
+
+    adding infowindow to map interface and making options for map visible.
+    
+    InfoWindow gets its data from a dictionary with the latitute and longitude as the key. This key may overlap.
+
+commit 6ec3cef30ca12bac10bd6fd0e64e81ebd1086c74
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 9 18:30:21 2011 -0500
+
+    updated interface
+
+commit 4526450850e2a2c9241130fbc2714b670a5c6d3a
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 9 18:01:24 2011 -0500
+
+    adding to map interface
+
+commit 32cf3ffdba488af3dff4b7d44925f700343f6585
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 9 17:32:19 2011 -0500
+
+    making placemap more modular
+
+commit c6218f76a7b5d7a711e0f9e977f6d6b2602008e4
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 9 16:24:52 2011 -0500
+
+    fixed anon function bug
+
+commit a47b421f1231a5569640312c833908f056bcc104
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Tue Nov 8 11:53:34 2011 -0500
+
+    changed google maps js interface and added a list of places
+
+commit 6ec052861f39dca955cf510e446dc23d96ae09ef
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Mon Nov 7 15:28:57 2011 -0500
+
+    updated htmljs/placemap.js
+
+commit 2a4e87b2e6772e9f4f7cdad7ea17ce3fc96921c6
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 2 21:58:03 2011 -0400
+
+    changed place tooltip
+
+commit 9034366539011c681299e37e3156fdd554893c12
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 2 20:41:38 2011 -0400
+
+    adding more to google maps test
+
+commit 306fe87b9f56d7a0284d968a2cb912a4efd73cce
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 2 19:09:38 2011 -0400
+
+    Finished Google Map initial GUI
+    
+    Doing this was insanely easy and replacing the code with JavaScript may be the way to go.
+
+commit 990dd486784b7bf1ab225fe2ad4857854f3863e1
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Wed Nov 2 17:26:17 2011 -0400
+
+    Added code to render a route with Google Maps. I intend to look through
+    locations within the route and create markers at points-of-interest.
+
+commit b9a7e125905f33110f36e925d20ec6b6d17d5091
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 2 16:21:13 2011 -0400
+
+    completed google map frontend test
+
+commit bf8642d5841a1e81cd7808cbd1d30b49cccf6906
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Nov 2 15:13:24 2011 -0400
+
+    created google maps frontend test
+
+commit 4f36ca459532d2128c5bbffe6c06a11055f81a6a
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Thu Oct 27 00:21:55 2011 -0400
+
+    add junit org-mode todo list
+
+commit 761c0a1db0d5fb658caf1afc1ac7f2f4a91bbf6f
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Thu Oct 27 00:13:05 2011 -0400
+
+    adding junit tests
+
+commit 7a268b7c402c16d9a6070177f44b20dd140dd685
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Oct 26 23:04:03 2011 -0400
+
+    adding unit tests
+
+commit 6b9999e9d682ed71febdb55e0dbf446eed895db2
+Merge: 07f43b4 fcccb3d
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Oct 26 20:17:54 2011 -0400
+
+    Merge branch 'master' of github.com:fsuarez2005/cosc481-frank-placemap
+
+commit 07f43b4de7671cabd2d4995adb092a6762f16204
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Oct 26 20:15:40 2011 -0400
+
+    added git log filename to README
+
+commit 73b3b670e139af6abf424ae82b3d40d2455c0e3b
+Author: Frank Suarez <fsuarez2007@gmail.com>
+Date:   Wed Oct 26 20:11:12 2011 -0400
+
+    deleted:    FILES-java
+    	Information about files should be in files.
+    
+    modified:   README
+    	Added build information and a description for week 3 submission.
+    
+    new file:   log/git.log
+    	Required configuration log for week 3.
+
+commit 8e92987834c669acf232d76caa703ae20fdb1485
+Author: Nathan Mentley <nathanmentley@gmail.com>
+Date:   Wed Oct 26 17:41:28 2011 -0400
+
+    catching up with frank
+
+commit fcccb3da87890641bcf2d9273ce193b7f4809d9d
+Author: Frank Suarez <fsuarez@emich.edu>
+Date:   Mon Oct 24 17:01:07 2011 -0400
+
+    added week 3 reflection
+
 commit 3d957df014a376c68205edba98b71a824ab6de64
 Author: Frank Suarez <fsuarez2007@gmail.com>
 Date:   Mon Oct 17 12:07:37 2011 -0400

@@ -5,7 +5,7 @@ body {
 
 
 body {
-    
+    font-family: Georgia;
     padding:0px;
     overflow: hidden;
 }
@@ -24,26 +24,39 @@ div#tabs {
 }
 
 div#tabs > div {
+    font-family: Verdana;
     display:block;
     height:80%;
     overflow-y: scroll;
 }
 
-.inputLabel {
-    display:inline-block;
-    width:100px;
-    margin-bottom:15px;
+div#startTab label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 10px;
+    font-size: 12pt;
+
 }
 
-input[type=text] {
-    padding:5px;
+
+div#startTab input[type=text] {
+    font-size:12pt;
+    padding: 2px;
+    width: 250px;
+    border: 1px solid black;
+}
+
+div#startTab select {
+    border: 1px solid black;
+    font-size: 12px;
+    padding: 2px;
+    background: white;
     width: 250px;
 }
 
-select {
-    padding:5px;
-    background: white;
-    width: 250px:
+div#startTab input[type=button] {
+    font-size: 16px;
+    border: 1px solid black;
 }
 
 div.placeitem {
@@ -55,6 +68,13 @@ div.placeitem {
 div.placeitem:hover {
     background:#ccc;
 }
+
+
+div.markerContent {
+    font-size: 11pt;
+}
+
+
 
 /* ==================================== */
 /* old builtin interface */
