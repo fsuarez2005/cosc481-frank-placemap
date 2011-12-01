@@ -4,6 +4,9 @@
                 <script type="text/javascript" src="js/util.js"></script>
                 <script type="text/javascript" src="js/placemap.js"></script>
                 <script type="text/javascript" src="js/jsunit-small.js"></script>
+                <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+
+                <div style='display:none;' id='placemaptestdiv'></div>
                 
 		<h1>PlaceMap Tests</h1>
                 <h3>Util.js - Functions</h3>
@@ -50,17 +53,20 @@
                         
                 </script>
                 </tt>
-                <h3>PlaceMap.js - Dictionary Class</h3>
+                <h3>PlaceMap.js - PlaceMap Class</h3>
                 <tt>
                 <script type="text/javascript">
 
                         function PlaceMapTestCase() {
+                                this.n = document.getElementById('placemaptestdiv');
+                                this.defaultPlaceMap = new PlaceMap( this.n );
                                 this.dictTests = new util.Dict();
 
-                                this.test_add = function() {
+                                this.test_check_for_google_libs = function() {
                                         this.dictTests.add("key","data");
                                         assert.equals(this.dictTests.length(), 1);
                                 };
+
                                 this.test_handle_duplicate = function() {
                                         this.dictTests.add("key","data");
                                         assert.equals(this.dictTests.length(), 1);
