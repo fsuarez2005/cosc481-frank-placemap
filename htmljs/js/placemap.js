@@ -399,7 +399,7 @@ function PlaceMap(parentNode) {
 
 	content = content + "<b><a target='_blank' href='" + place.url + "'>" + place.name + "</a></b>";
 	if(place.rating != null){
-	    content = content + " Rating: " + place.rating;
+	    content = content + " Rating: " + place.rating + " / 5";
 	}
 	if(place.formatted_address != null){
 	    content = content + "<br />" + place.formatted_address;
