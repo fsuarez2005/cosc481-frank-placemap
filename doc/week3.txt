@@ -1,0 +1,11 @@
+For the last delivery's methodology, we researched what we needed to create a text based interface, diagrammed parts of the program to create, split the project into pieces, and worked on the pieces individually. We also experimented with the OpenStreetMap data sources and checked for JavaScript user interfaces for maps.
+
+At this point we have a text-based client that shows that our software could do what we need it to do. We made sure the software had good modularity in case we needed it changed.
+
+We believe that we are ahead of schedule. Our goal for the week 3 delivery was to create a text-based client and we accomplished that.
+
+We will keep meeting at the library, using GIT, and using the whiteboard for diagramming. We will discontinue trying crazy ideas and work on one idea together. We would like to try a group programming session for an extended amount of time.
+
+For the completed project we expect to have a web based map. The user will choose start and end locations. The map will display the route and points-of-interest along the route. The data for the route and places will come from Google Maps, MapQuest, and Google Places.
+
+For week 5 we will work on developing the GUI for the map. A server will run Java Server Pages to create a web page that we intend to interact with the Google Maps API. The Google Maps API will also be looked at to see how best it will be integrated into our project. We will allow filtering by catagory in the PlaceMap library.
